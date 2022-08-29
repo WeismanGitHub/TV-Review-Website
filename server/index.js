@@ -11,7 +11,7 @@ require('express-async-errors');
 require("dotenv").config();
 
 // const authenticationMiddleware = require('./middleware/authentication-middleware')
-// const authenticationRouter = require('./routers/authentication-router')
+const authenticationRouter = require('./routers/authentication-router')
 // const errorHandler = require('./middleware/error-handler')
 // const userRouter = require('./routers/user-router')
 
@@ -32,8 +32,8 @@ app.use(cookieParser());
 app.use(compression());
 app.use(cors())
 
-// app.use('/api/v1/user', authenticationMiddleware, userRouter)
-// app.use('/api/v1/authentication', authenticationRouter)
+// app.use('/api/user', authenticationMiddleware, userRouter)
+app.use('/api/authentication', authenticationRouter)
 
 app.get('*', (req, res) => {
     res.sendFile('index.html', { root: path.join(__dirname, '../client/build/') });
