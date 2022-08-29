@@ -1,3 +1,4 @@
+const UnauthorizedError = require('../errors/unauthorized-error')
 const UserSchema = require('../schemas/user-schema')
 
 const register = async (req, res) => {
@@ -14,13 +15,13 @@ const login = async (req, res) => {
     const user = await UserSchema.findOne({ name: name })
 
     if (!user) {
-        throw new Error('Please provide a valid name.')
+        throw new UnauthorizedError('Please provide a valid name.')
     }
     
     const PasswordIsCorrect = await user.checkPassword(password)
     
     if (!PasswordIsCorrect) {
-        throw new Error('Please provide the correct password.')
+        throw new UnauthorizedError('Please provide the correct password.')
     }
 
     const token = user.createJWT()

@@ -10,9 +10,9 @@ const cors = require('cors');
 require('express-async-errors');
 require("dotenv").config();
 
-// const authenticationMiddleware = require('./middleware/authentication-middleware')
+const authenticationMiddleware = require('./middleware/authentication-middleware')
 const authenticationRouter = require('./routers/authentication-router')
-// const errorHandler = require('./middleware/error-handler')
+const errorHandler = require('./middleware/error-handler')
 // const userRouter = require('./routers/user-router')
 
 const app = express();
@@ -39,7 +39,7 @@ app.get('*', (req, res) => {
     res.sendFile('index.html', { root: path.join(__dirname, '../client/build/') });
 });
 
-// app.use(errorHandler)
+app.use(errorHandler)
 
 try {
     const port = process.env.PORT || 5000
