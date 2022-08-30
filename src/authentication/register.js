@@ -9,7 +9,7 @@ function Register() {
     async function registerHandler(event) {
         event.preventDefault();
 
-        axios.post('/api/v1/authentication/register', {
+        axios.post('/api/authentication/register', {
             name: event.target[0].value,
             password: event.target[1].value
         }).then(res => {

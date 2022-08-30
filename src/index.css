@@ -1,0 +1,27 @@
+* {
+    background-color: aliceblue;
+    text-align: center;
+}
+
+button {
+    border-radius: 4px;
+    padding: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    height: auto;
+    border: 1px black solid;
+}
+
+form {
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: auto;
+    max-width: fit-content;
+    border: 1px black solid;
+    font-size: 150%;
+}
+
+button:hover {
+    filter: brightness(95%);
+}

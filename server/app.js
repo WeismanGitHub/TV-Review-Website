@@ -36,14 +36,14 @@ app.use(cors())
 app.use('/api/authentication', authenticationRouter)
 
 app.get('*', (req, res) => {
-    res.sendFile('index.html', { root: path.join(__dirname, '../client/build/') });
+    res.sendFile('index.html', { root: path.join(__dirname, '../build/') });
 });
 
 app.use(errorHandler)
 
 try {
     const port = process.env.PORT || 5000
-    mongoose.connect(process.env.MONGO_URI, { autoIndex: true })
+    mongoose.connect(process.env.LOCAL_MONGO_URI, { autoIndex: true })
     console.log('Connected to database...')
     app.listen(port, console.log(`listening on port ${port}...`));
 } catch (err) {

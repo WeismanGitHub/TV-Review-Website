@@ -3,7 +3,6 @@ import Login from './authentication/login';
 
 const Authentication = (
     <>
-        <br/>
         <Login/>
         <br/>
         <Register/>
