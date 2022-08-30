@@ -1,8 +1,13 @@
-function Home() {
+import Cookie from 'universal-cookie';
+const cookie = new Cookie();
 
+function Home() {
     return (
         <>
-          Home Page
+            <div class='navbar'>
+                {cookie.get('token') ? 'Your Account' : 'Login/Register'}
+            </div>
+            Home Page
         </>
     )
 }
