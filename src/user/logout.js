@@ -9,7 +9,7 @@ function Logout() {
     function onClick(event) {
         event.preventDefault();
 
-        axios.post('/api/v1/authentication/logout')
+        axios.post('/api/authentication/logout')
         .then(res => {
             navigate('/authentication');
         }).catch(error => {

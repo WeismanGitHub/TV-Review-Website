@@ -1,5 +1,5 @@
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import UpdateUser from './user/update-user'
 import DeleteUser from './user/delete-user'
@@ -7,7 +7,7 @@ import Logout from './user/logout'
 const axios = require('axios').default;
 
 function User() {
-    const [user, setUser] = useState()
+    const [user, setUser] = useState('Loading...')
 
     useEffect(() => {
         axios.get('/api/v1/user')
@@ -15,7 +15,7 @@ function User() {
             setUser(res.data.user)
         })
         .catch(err => {
-            console.log(err.message)
+            toast.error(err.response.data.message)
         })
     }, [])
 

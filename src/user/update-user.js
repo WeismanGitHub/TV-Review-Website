@@ -6,12 +6,12 @@ function UpdateUser({ user }) {
     async function onSubmit(event) {
         event.preventDefault();
         
-        axios.post('/api/v1/user/update', {
+        axios.post('/api/user/update', {
             name: event.target[0].value,
             password: event.target[1].value
         }).then(res => {
             window.location.reload(false);
-            toast('Account updated!')
+            toast.success('Account updated!')
         }).catch(err => {
             toast.error(err.response.data.message)
         })
