@@ -1,4 +1,4 @@
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 const axios = require('axios').default;
@@ -33,7 +33,6 @@ function Login() {
                 <br/>
                 <button type='submit'>Login</button>
             </form>
-            <ToastContainer/>
         </div>
     )
 }

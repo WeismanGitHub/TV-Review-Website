@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { createRoot } from 'react-dom/client'
 import './index.css';
 
@@ -18,5 +19,6 @@ root.render(
                 <Route path='*' element={<h1>This page doesn't exist!</h1>}/>
             </Routes>
         </Router>
+        <ToastContainer/>
     </>
 )
