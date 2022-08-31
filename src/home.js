@@ -5,7 +5,7 @@ function Home() {
 
     return (
         <div class='navbar'>
-            {cookie.get('token') ? <button href='/user'>Account</button> : <button href='/authentication'>Authentication</button>}
+            {cookie.get('token') ? <a href='/user' class="navbarButton">Account</a> : <a href='/authentication' class="navbarButton">Authentication</a>}
         </div>
     )
 }
