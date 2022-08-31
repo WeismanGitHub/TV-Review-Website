@@ -1,3 +1,4 @@
+const authenticationMiddleware = require('../middleware/authentication-middleware')
 const express = require('express')
 
 const {
@@ -8,8 +9,8 @@ const {
 
 const router = express.Router()
 
-router.route('/update').post(updateUser)
-router.route('/delete').post(deleteUser)
+router.route('/update').post(authenticationMiddleware, updateUser)
+router.route('/delete').post(authenticationMiddleware, deleteUser)
 router.route('/:userId?').get(getUser)
 
 module.exports = router

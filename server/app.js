@@ -10,10 +10,9 @@ const cors = require('cors')
 require('express-async-errors')
 require("dotenv").config()
 
-// const authenticationMiddleware = require('./middleware/authentication-middleware')
 const authenticationRouter = require('./routers/authentication-router')
 const errorHandler = require('./middleware/error-handler')
-// const userRouter = require('./routers/user-router')
+const userRouter = require('./routers/user-router')
 
 const app = express()
 const limiter = rateLimit({
@@ -32,7 +31,7 @@ app.use(cookieParser())
 app.use(compression())
 app.use(cors())
 
-// app.use('/api/user', authenticationMiddleware, userRouter)
+app.use('/api/user', userRouter)
 app.use('/api/authentication', authenticationRouter)
 
 app.get('*', (req, res) => {

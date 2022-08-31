@@ -9,8 +9,8 @@ function DeleteUser() {
     function onClick(event) {
         event.preventDefault();
 
-        if (window.confirm('Do you want to delete your account?')) {
-            axios.post('/api/v1/user/delete')
+        if (window.confirm('Are you sure you want to delete your account?')) {
+            axios.post('/api/user/delete')
             .then(res => {
                 navigate('/authentication');
             }).catch(error => {
