@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-require('dotenv').config();
+const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+require('dotenv').config()
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -22,31 +22,31 @@ const UserSchema = new mongoose.Schema({
 })
 
 UserSchema.plugin(schema => {
-    schema.pre('findOneAndUpdate', setOptions);
-    schema.pre('updateMany', setOptions);
-    schema.pre('updateOne', setOptions);
-    schema.pre('update', setOptions);
-});
+    schema.pre('findOneAndUpdate', setOptions)
+    schema.pre('updateMany', setOptions)
+    schema.pre('updateOne', setOptions)
+    schema.pre('update', setOptions)
+})
 
 function setOptions() {
-    this.setOptions({ runValidators: true, new: true });
+    this.setOptions({ runValidators: true, new: true })
 }
 
 UserSchema.pre('save', async function() {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-});
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
+})
 
 UserSchema.methods.createJWT = function() {
     return jwt.sign(
         { _id: this._id, name: this.name },
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_LIFETIME },
-    );
-};
+    )
+}
 
 UserSchema.methods.checkPassword = async function(candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.password);
-};
+    return await bcrypt.compare(candidatePassword, this.password)
+}
 
-module.exports = mongoose.model('users', UserSchema);
+module.exports = mongoose.model('users', UserSchema)
