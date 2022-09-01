@@ -7,7 +7,6 @@ module.exports = {
         paths.appHtml = path.resolve(__dirname, 'client/public/index.html')
         paths.appSrc = path.resolve(__dirname, 'client/src')
         paths.appIndexJs = path.resolve(__dirname, 'client/src/index.js')
-        console.log(paths)
         return paths;
     }
 };
