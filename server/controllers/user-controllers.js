@@ -26,17 +26,16 @@ const getUser = async (req, res) => {
 
     if (!user) throw new Error('User does not exist.')
 
-    res.status(StatusCodes.OK)
+    res.status(200)
     .send(user)
 }
 
 const getSelf = async (req, res) => {
-    console.log(req.userId)
    const user = await UserSchema.findById(req.userId).select('-_id -password').lean()
 
    if (!user) throw new Error('User does not exist.')
 
-    res.status(StatusCodes.OK)
+    res.status(200)
     .send(user)
 }
 
