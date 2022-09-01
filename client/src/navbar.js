@@ -1,4 +1,4 @@
-import cookie from 'universal-cookie';
+import Cookie from 'universal-cookie';
 import Logout from './self/logout'
 const cookie = new Cookie();
 

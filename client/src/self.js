@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import UpdateSelf from './self/update-self'
 import DeleteSelf from './self/delete-self'
 import { toast } from 'react-toastify';
-import cookie from 'universal-cookie';
+import Cookie from 'universal-cookie';
 import NavBar from './navbar'
+
 const axios = require('axios').default;
+const cookie = new Cookie();
 
 function Self() {
     if (!cookie.get('token')) {
