@@ -6,10 +6,10 @@ import DeleteUser from './user/delete-user'
 const axios = require('axios').default;
 
 function User() {
-    const [user, setUser] = useState('Loading...')
+    const [user, setUser] = useState()
 
     useEffect(() => {
-        axios.get('/api/v1/user')
+        axios.get('/api/user')
         .then(res => {
             setUser(res.data.user)
         })

@@ -32,6 +32,7 @@
     "nodemon": "^2.0.18"
   },
   "scripts": {
+    "app": "nodemon server/app.js",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
