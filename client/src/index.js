@@ -14,7 +14,7 @@ root.render(
         <Router>
             <Routes>
                 <Route exact path='/' element={<Home/>}/>
-                <Route exact path='/account' element={User}/>
+                <Route exact path='/account' element={<User/>}/>
                 <Route exact path='/authentication' element={Authentication}/>
                 <Route path='*' element={<h1>This page doesn't exist!</h1>}/>
             </Routes>
