@@ -13,7 +13,7 @@ function UpdateUser({ user }) {
             window.location.reload(false);
             toast.success('Account updated!')
         }).catch(err => {
-            toast.error(err.response.data.message)
+            toast.error(err.response.data)
         })
     }
 

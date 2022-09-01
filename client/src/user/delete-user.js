@@ -14,7 +14,7 @@ function DeleteUser() {
             .then(res => {
                 navigate('/authentication');
             }).catch(error => {
-                toast.error(error.response.data.message)
+                toast.error(error.response.data)
             })
         }
     }
