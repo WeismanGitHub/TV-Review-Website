@@ -31,7 +31,8 @@ const getUser = async (req, res) => {
 }
 
 const getSelf = async (req, res) => {
-   const user = await UserSchema.findById(req.params.userId || req.userId).select('-_id -password').lean()
+    console.log(req.userId)
+   const user = await UserSchema.findById(req.userId).select('-_id -password').lean()
 
    if (!user) throw new Error('User does not exist.')
 
