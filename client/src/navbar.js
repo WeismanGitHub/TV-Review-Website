@@ -1,9 +1,10 @@
-import Cookie from 'universal-cookie';
-import Logout from './user/logout'
+import cookie from 'universal-cookie';
+import Logout from './self/logout'
 const cookie = new Cookie();
 
 function NavBar() {
     const token = cookie.get('token')
+
     return (
         <div>
             <div class='navbar'>

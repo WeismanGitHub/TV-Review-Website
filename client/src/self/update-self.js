@@ -2,7 +2,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 const axios = require('axios').default;
 
-function UpdateUser({ user }) {
+function UpdateSelf({ self }) {
     async function onSubmit(event) {
         event.preventDefault();
         
@@ -22,7 +22,7 @@ function UpdateUser({ user }) {
             <div>Update Account</div>
             <form onSubmit={onSubmit}>
                 Name:
-                <input id='Your Name' type='text' name='name' placeholder={user?.name} maxlength='15' minlength='1'/>
+                <input id='Your Name' type='text' name='name' placeholder={self?.name} maxlength='15' minlength='1'/>
                 Password:
                 <input id='Your Password' type='password' placeholder="password" name='password' maxlength='50' minlength='6'/>
                 <button type='submit'>Update</button>
@@ -31,4 +31,4 @@ function UpdateUser({ user }) {
     )
 }
 
-export default UpdateUser
+export default UpdateSelf

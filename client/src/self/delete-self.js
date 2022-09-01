@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 const axios = require('axios').default;
 
-function DeleteUser() {
+function DeleteSelf() {
     const navigate = useNavigate();
 
     function onClick(event) {
@@ -22,4 +22,4 @@ function DeleteUser() {
     return <button onClick={onClick}>Delete Account</button>
 }
 
-export default DeleteUser
+export default DeleteSelf
