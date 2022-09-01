@@ -22,9 +22,18 @@ const deleteUser = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-    const user = await UserSchema.findById(req.params.userId || req.userId).select('-_id -password').lean()
+    const user = await UserSchema.findById(req.params.userId).select('-_id -password').lean()
 
     if (!user) throw new Error('User does not exist.')
+
+    res.status(StatusCodes.OK)
+    .send(user)
+}
+
+const getSelf = async (req, res) => {
+   const user = await UserSchema.findById(req.params.userId || req.userId).select('-_id -password').lean()
+
+   if (!user) throw new Error('User does not exist.')
 
     res.status(StatusCodes.OK)
     .send(user)
@@ -34,4 +43,5 @@ module.exports = {
     updateUser,
     deleteUser,
     getUser,
+    getSelf
 }
