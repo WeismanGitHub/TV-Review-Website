@@ -6,6 +6,7 @@ function NavBar() {
     return (
         <div>
             <div class='navbar'>
+                <a href='/' class="navbarButton">Home</a>
                 {cookie.get('token') ? <a href='/account' class="navbarButton">Account</a> : <a href='/authentication' class='navbarButton'>Login/Register</a>}
                 <Logout class='navbarButton'/>
             </div>
