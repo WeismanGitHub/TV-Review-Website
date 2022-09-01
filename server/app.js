@@ -23,7 +23,7 @@ const limiter = rateLimit({
 })
 
 app.use(limiter)
-app.use(express.static(path.resolve(__dirname, '../build')))
+app.use(express.static(path.resolve(__dirname, '../client/build')))
 app.use(helmet.contentSecurityPolicy({ directives: { 'script-src-attr': null } }))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -35,7 +35,7 @@ app.use('/api/user', userRouter)
 app.use('/api/authentication', authenticationRouter)
 
 app.get('*', (req, res) => {
-    res.sendFile('index.html', { root: path.join(__dirname, '../build/') })
+    res.sendFile('index.html', { root: path.join(__dirname, '../client/build') })
 })
 
 app.use(errorHandler)
