@@ -4,9 +4,13 @@ const cookie = new Cookie();
 
 function NavBar() {
     return (
-        <div class='navbar'>
-            {cookie.get('token') ? <a href='/account' class="navbarButton">Account</a> : <a href='/authentication' class='navbarButton'>Login/Register</a>}
-            <Logout class='navbarButton'/>
+        <div>
+            <div class='navbar'>
+                {cookie.get('token') ? <a href='/account' class="navbarButton">Account</a> : <a href='/authentication' class='navbarButton'>Login/Register</a>}
+                <Logout class='navbarButton'/>
+            </div>
+            <br/>
+            <br/>   
         </div>
     )
 }
