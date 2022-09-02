@@ -9,7 +9,7 @@ const authentication = async (req, res, next) => {
     
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET)
-        req.userId = payload._id
+        req.userId = payload
         next()
     } catch (error) {
         res.status(401)
