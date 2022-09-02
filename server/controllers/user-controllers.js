@@ -1,3 +1,4 @@
+const DuplicateKeyError = require('../errors/duplicate-key-error')
 const UserSchema = require('../schemas/user-schema')
 
 const updateUser = async (req, res) => {
@@ -9,6 +10,13 @@ const updateUser = async (req, res) => {
         req.userId,
         updateObject
     ).select('_id')
+    .catch(err => {
+        if (err.name == 'MongoServerError') {
+            throw new DuplicateKeyError('Pick a unique username.')
+        }
+        
+        throw new Error(err.message)
+    })
 
     const token = user.createJWT()
 
