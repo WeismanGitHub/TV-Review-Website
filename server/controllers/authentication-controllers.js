@@ -1,8 +1,17 @@
+const DuplicateKeyError = require('../errors/duplicate-key-error')
 const UnauthorizedError = require('../errors/unauthorized-error')
 const UserSchema = require('../schemas/user-schema')
 
 const register = async (req, res) => {
     const user = await UserSchema.create(req.body)
+    .catch(err => {
+        if (err.name == 'MongoServerError') {
+            throw new DuplicateKeyError('Pick a unique username.')
+        }
+
+        throw new Error(err.message)
+    })
+
     const token = user.createJWT()
 
     res.status(201)
