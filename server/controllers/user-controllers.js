@@ -1,20 +1,31 @@
 const DuplicateKeyError = require('../errors/duplicate-key-error')
 const UserSchema = require('../schemas/user-schema')
 
-const updateUser = async (req, res) => {
-    const { name, password } = req.body
-    //If a password or name is entered then it's added to updateObject.
-    const updateObject = { ...password && { password: password }, ...name && { name: name } }
-
+const updateName = async (req, res) => {
     const user = await UserSchema.findByIdAndUpdate(
         req.userId,
-        updateObject
+        { name: req.body }
     ).select('_id')
+
+    const token = user.createJWT()
+
+    res.status(200)
+    .cookie('token', token)
+    .end()
+}
+
+const updatePassword = async (req, res) => {
+    const user = await UserSchema.findById(
+        req.userId
+    ).select('_id')
+
+    user.password = req.body
+    await user.save()
     .catch(err => {
         if (err.name == 'MongoServerError') {
+            console.log('errere', err.message)
             throw new DuplicateKeyError('Pick a unique username.')
         }
-        
         throw new Error(err.message)
     })
 
@@ -52,7 +63,8 @@ const getSelf = async (req, res) => {
 }
 
 module.exports = {
-    updateUser,
+    updatePassword,
+    updateName,
     deleteUser,
     getUser,
     getSelf
