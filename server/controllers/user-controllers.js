@@ -1,9 +1,13 @@
 const UserSchema = require('../schemas/user-schema')
 
 const updateUser = async (req, res) => {
+    const { name, password } = req.body
+    //If a password or name is entered then it's added to updateObject.
+    const updateObject = { ...password && { password: password }, ...name && { name: name } }
+
     const user = await UserSchema.findByIdAndUpdate(
         req.userId,
-        req.body
+        updateObject
     ).select('_id')
 
     const token = user.createJWT()

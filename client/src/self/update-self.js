@@ -11,7 +11,6 @@ function UpdateSelf({ self }) {
             password: event.target[1].value
         }).then(res => {
             window.location.reload(false);
-            toast.success('Account updated!')
         }).catch(err => {
             toast.error(err.response.data)
         })
