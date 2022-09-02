@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 15,
         trim: true,
-        unique: true 
+        unique: true
     },
     password: {
         type: String,
@@ -20,17 +20,6 @@ const UserSchema = new mongoose.Schema({
         trim: true,
     }
 })
-
-UserSchema.plugin(schema => {
-    schema.pre('findOneAndUpdate', setOptions)
-    schema.pre('updateMany', setOptions)
-    schema.pre('updateOne', setOptions)
-    schema.pre('update', setOptions)
-})
-
-function setOptions() {
-    this.setOptions({ runValidators: true, new: true })
-}
 
 UserSchema.pre('save', async function() {
     const salt = await bcrypt.genSalt(10)
