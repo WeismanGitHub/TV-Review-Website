@@ -6,6 +6,13 @@ const updateName = async (req, res) => {
         req.userId,
         { name: req.body }
     ).select('_id')
+    .catch(err => {
+        if (err.name == 'MongoServerError') {
+            throw new DuplicateKeyError('Pick a unique username.')
+        }
+        
+        throw new Error(err.message)
+    })
 
     const token = user.createJWT()
 
@@ -20,15 +27,8 @@ const updatePassword = async (req, res) => {
     ).select('_id')
 
     user.password = req.body
+    
     await user.save()
-    .catch(err => {
-        if (err.name == 'MongoServerError') {
-            console.log('errere', err.message)
-            throw new DuplicateKeyError('Pick a unique username.')
-        }
-        throw new Error(err.message)
-    })
-
     const token = user.createJWT()
 
     res.status(200)
