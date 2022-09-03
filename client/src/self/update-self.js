@@ -19,7 +19,7 @@ function UpdateSelf({ self }) {
 
     return (
         <div>
-            <div>Update Account</div>
+            <h2>Update Account</h2>
             <form onSubmit={onSubmit}>
                 Current Password:
                 <br/>
@@ -27,7 +27,7 @@ function UpdateSelf({ self }) {
                 <br/>
                 New Name:
                 <br/>
-                <input type='text' name='name' placeholder={self?.name} maxlength='15' minlength='1'/>
+                <input type='text' name='name' placeholder={self?.name || 'new name'} maxlength='15' minlength='1'/>
                 <br/>
                 New Password:
                 <br/>
