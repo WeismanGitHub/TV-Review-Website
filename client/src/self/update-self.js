@@ -8,8 +8,8 @@ function UpdateSelf({ self }) {
         
         axios.post('/api/user/update', {
             currentPassword: event.target[0].value,
-            name: event.target[1].value,
-            password: event.target[2].value
+            newName: event.target[1].value,
+            newPassword: event.target[2].value
         }).then(res => {
             window.location.reload(false);
         }).catch(err => {
