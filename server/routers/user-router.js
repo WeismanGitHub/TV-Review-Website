@@ -2,8 +2,7 @@ const authenticationMiddleware = require('../middleware/authentication-middlewar
 const express = require('express')
 
 const {
-    updatePassword,
-    updateName,
+    updateUser,
     deleteUser,
     getUser,
     getSelf
@@ -11,8 +10,7 @@ const {
 
 const router = express.Router()
 
-router.route('/update/password').post(authenticationMiddleware, updatePassword)
-router.route('/update/name').post(authenticationMiddleware, updateName)
+router.route('/update').post(authenticationMiddleware, updateUser)
 router.route('/delete').post(authenticationMiddleware, deleteUser)
 router.route('/').get(authenticationMiddleware, getSelf)
 router.route('/:userId').get(getUser)
