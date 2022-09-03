@@ -1,39 +1,36 @@
 const DuplicateKeyError = require('../errors/duplicate-key-error')
+const UnauthorizedError = require('../errors/unauthorized-error')
 const UserSchema = require('../schemas/user-schema')
 
-const updateName = async (req, res) => {
-    const user = await UserSchema.findByIdAndUpdate(
-        req.userId,
-        { name: req.body }
-    ).select('_id')
-    .catch(err => {
-        if (err.name == 'MongoServerError') {
-            throw new DuplicateKeyError('Pick a unique username.')
-        }
-        
-        throw new Error(err.message)
-    })
-
-    const token = user.createJWT()
-
-    res.status(200)
-    .cookie('token', token)
-    .end()
-}
-
-const updatePassword = async (req, res) => {
-    const user = await UserSchema.findById(
-        req.userId
-    ).select('_id')
-
-    user.password = req.body
+const updateUser = async (req, res) => {
+    const { name, newPassword, currentPassword} = req.body
+    const user = await UserSchema.findById(req.userId)
     
-    await user.save()
-    const token = user.createJWT()
+    const passwordIsCorrect = await user.checkPassword(currentPassword)
+    
+    if (!passwordIsCorrect) {
+        throw new UnauthorizedError('Please provide the correct password.')
+    }
+    
+    user.name = name ?? user.name
+    user.name = name ?? user.name
+    user.password = newPassword ?? user.password
+    console.log(user)
 
-    res.status(200)
-    .cookie('token', token)
-    .end()
+    // await user.save()
+    // .catch(err => {
+    //     if (err.name == 'MongoServerError') {
+    //         throw new DuplicateKeyError('Pick a unique username.')
+    //     }
+        
+    //     throw new Error(err.message)
+    // })
+
+    // const token = user.createJWT()
+
+    // res.status(200)
+    // .cookie('token', token)
+    // .end()
 }
 
 const deleteUser = async (req, res) => {
@@ -63,8 +60,7 @@ const getSelf = async (req, res) => {
 }
 
 module.exports = {
-    updatePassword,
-    updateName,
+    updateUser,
     deleteUser,
     getUser,
     getSelf
