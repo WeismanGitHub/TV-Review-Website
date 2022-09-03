@@ -23,7 +23,7 @@ function UpdateSelf({ self }) {
             <form onSubmit={onSubmit}>
                 Current Password:
                 <br/>
-                <input type='text' name='current password' placeholder='current password' maxlength='50' minlength='6'/>
+                <input type='password' name='current password' placeholder='current password' maxlength='50' minlength='6'/>
                 <br/>
                 New Name:
                 <br/>
