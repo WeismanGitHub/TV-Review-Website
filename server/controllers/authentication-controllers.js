@@ -27,9 +27,9 @@ const login = async (req, res) => {
         throw new UnauthorizedError('Please provide a valid name.')
     }
     
-    const PasswordIsCorrect = await user.checkPassword(password)
+    const passwordIsCorrect = await user.checkPassword(password)
     
-    if (!PasswordIsCorrect) {
+    if (!passwordIsCorrect) {
         throw new UnauthorizedError('Please provide the correct password.')
     }
 
