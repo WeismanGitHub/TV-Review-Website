@@ -3,7 +3,7 @@ const UnauthorizedError = require('../errors/unauthorized-error')
 const UserSchema = require('../schemas/user-schema')
 
 const updateUser = async (req, res) => {
-    const { name, newPassword, currentPassword} = req.body
+    const { newName, newPassword, currentPassword} = req.body
     const user = await UserSchema.findById(req.userId)
     
     const passwordIsCorrect = await user.checkPassword(currentPassword)
@@ -11,26 +11,27 @@ const updateUser = async (req, res) => {
     if (!passwordIsCorrect) {
         throw new UnauthorizedError('Please provide the correct password.')
     }
-    
-    user.name = name ?? user.name
-    user.name = name ?? user.name
-    user.password = newPassword ?? user.password
-    console.log(user)
 
-    // await user.save()
-    // .catch(err => {
-    //     if (err.name == 'MongoServerError') {
-    //         throw new DuplicateKeyError('Pick a unique username.')
-    //     }
+    if (newName) {
+        user.name = newName
+    }
+
+    if (newPassword) {
+        user.password = newPassword
+    } else {
+        user.password = currentPassword
+    }
+
+    await user.save()
+    .catch(err => {
+        if (err.name == 'MongoServerError') {
+            throw new DuplicateKeyError('Pick a unique username.')
+        }
         
-    //     throw new Error(err.message)
-    // })
+        throw new Error(err.message)
+    })
 
-    // const token = user.createJWT()
-
-    // res.status(200)
-    // .cookie('token', token)
-    // .end()
+    res.status(200).end()
 }
 
 const deleteUser = async (req, res) => {
