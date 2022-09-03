@@ -28,7 +28,9 @@ function Self() {
     return (
         <div>
             <NavBar/>
+            <br/>
             <UpdateSelf self={self}/>
+            <br/>
             <DeleteSelf/>
         </div>
     )

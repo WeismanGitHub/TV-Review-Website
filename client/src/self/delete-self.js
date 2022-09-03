@@ -13,13 +13,13 @@ function DeleteSelf() {
             axios.post('/api/user/delete')
             .then(res => {
                 navigate('/authentication');
-            }).catch(error => {
-                toast.error(error.response.data)
+            }).catch(err => {
+                toast.error(err.response.data)
             })
         }
     }
 
-    return <button onClick={onClick}>Delete Account</button>
+    return <a href='/authentication' onClick={onClick} class="customButton">Delete Account</a>
 }
 
 export default DeleteSelf

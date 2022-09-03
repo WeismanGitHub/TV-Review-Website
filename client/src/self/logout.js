@@ -17,7 +17,7 @@ function Logout() {
         })
     }
 
-    return <a href='/authentication' onClick={onClick} class="navbarButton">Logout</a>
+    return <a href='/authentication' onClick={onClick} class="customButton">Logout</a>
 }
 
 export default Logout

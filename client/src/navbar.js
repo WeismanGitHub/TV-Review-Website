@@ -8,9 +8,9 @@ function NavBar() {
     return (
         <div>
             <div class='navbar'>
-                <a href='/' class="navbarButton">Home</a>
-                {token ? <a href='/account' class="navbarButton">Account</a> : <a href='/authentication' class='navbarButton'>Login/Register</a>}
-                {token && <Logout class='navbarButton'/>}
+                <a href='/' class="customButton">Home</a>
+                {token ? <a href='/account' class="customButton">Account</a> : <a href='/authentication' class='customButton'>Login/Register</a>}
+                {token && <Logout class='customButton'/>}
             </div>
             <br/>
             <br/>
