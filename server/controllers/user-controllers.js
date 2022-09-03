@@ -42,8 +42,9 @@ const deleteUser = async (req, res) => {
     .redirect('/authentication')
 }
 
+// getSelf and getUser are separate because getSelf requires you be logged in.
 const getUser = async (req, res) => {
-    const user = await UserSchema.findById(req.params.userId).select('-_id -password').lean()
+    const user = await UserSchema.findById(req.params.userId).select('-password').lean()
 
     if (!user) throw new Error('User does not exist.')
 
@@ -52,7 +53,7 @@ const getUser = async (req, res) => {
 }
 
 const getSelf = async (req, res) => {
-   const user = await UserSchema.findById(req.userId).select('-_id -password').lean()
+   const user = await UserSchema.findById(req.userId).select('-password').lean()
 
    if (!user) throw new Error('User does not exist.')
 
