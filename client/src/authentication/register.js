@@ -22,8 +22,8 @@ function Register() {
 
     return (
         <div>
+            <h2>Register</h2>
             <form onSubmit={registerHandler}>
-                <h2>Register</h2>
                 Name:
                 <br/>
                 <input id='Your Name' type='text' name='name' placeholder="name" maxlength='15' minlength='1'/>

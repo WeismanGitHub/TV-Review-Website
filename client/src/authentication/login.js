@@ -21,8 +21,8 @@ function Login() {
 
     return (
         <div>
+            <h2>Login</h2>
             <form onSubmit={loginHandler}>
-                <h2>Login</h2>
                 Name:
                 <br/>
                 <input type='text' name='name' placeholder="name" maxlength='15' minlength='1'/>
