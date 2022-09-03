@@ -3,6 +3,7 @@ const UnauthorizedError = require('../errors/unauthorized-error')
 const UserSchema = require('../schemas/user-schema')
 
 const register = async (req, res) => {
+    console.log(req)
     const user = await UserSchema.create(req.body)
     .catch(err => {
         if (err.name == 'MongoServerError') {

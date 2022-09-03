@@ -9,7 +9,7 @@ const updateUser = async (req, res) => {
     const passwordIsCorrect = await user.checkPassword(currentPassword)
     
     if (!passwordIsCorrect) {
-        throw new UnauthorizedError('Please provide the correct password.')
+        throw new UnauthorizedError('Please provide the correct current password.')
     }
 
     if (newName) {
