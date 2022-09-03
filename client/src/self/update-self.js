@@ -7,8 +7,9 @@ function UpdateSelf({ self }) {
         event.preventDefault();
         
         axios.post('/api/user/update', {
-            name: event.target[0].value,
-            password: event.target[1].value
+            currentPassword: event.target[0].value,
+            name: event.target[1].value,
+            password: event.target[2].value
         }).then(res => {
             window.location.reload(false);
         }).catch(err => {
@@ -20,10 +21,18 @@ function UpdateSelf({ self }) {
         <div>
             <div>Update Account</div>
             <form onSubmit={onSubmit}>
-                Name:
-                <input id='Your Name' type='text' name='name' placeholder={self?.name} maxlength='15' minlength='1'/>
-                Password:
-                <input id='Your Password' type='password' placeholder="password" name='password' maxlength='50' minlength='6'/>
+                Current Password:
+                <br/>
+                <input type='text' name='current password' placeholder='current password' maxlength='50' minlength='6'/>
+                <br/>
+                New Name:
+                <br/>
+                <input type='text' name='name' placeholder={self?.name} maxlength='15' minlength='1'/>
+                <br/>
+                New Password:
+                <br/>
+                <input type='password' placeholder="new password" name='new password' maxlength='50' minlength='6'/>
+                <br/>
                 <button type='submit'>Update</button>
             </form>
         </div>
