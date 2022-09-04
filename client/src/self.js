@@ -29,6 +29,10 @@ function Self() {
         <div>
             <NavBar/>
             <br/>
+            <h1>{self.name}</h1>
+            <br/>
+            <h2>Score: {self.score ?? 0}</h2>
+            <br/>
             <UpdateSelf self={self}/>
             <br/>
             <DeleteSelf/>
