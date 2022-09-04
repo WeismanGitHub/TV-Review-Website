@@ -18,6 +18,11 @@ const UserSchema = new mongoose.Schema({
         minlength: 6,
         maxlength: 50,
         trim: true,
+    },
+    score: {
+        type: Number,
+        required: [true, 'Please provide a score.'],
+        default: 0
     }
 })
 
