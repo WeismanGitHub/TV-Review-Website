@@ -13,6 +13,7 @@ require("dotenv").config()
 const authenticationRouter = require('./routers/authentication-router')
 const errorHandler = require('./middleware/error-handler')
 const userRouter = require('./routers/user-router')
+const TVRouter = require('./routers/tv-router')
 
 const app = express()
 const limiter = rateLimit({
@@ -31,8 +32,9 @@ app.use(cookieParser())
 app.use(compression())
 app.use(cors())
 
-app.use('/api/user', userRouter)
 app.use('/api/authentication', authenticationRouter)
+app.use('/api/user', userRouter)
+app.use('/api/tv', TVRouter)
 
 app.get('*', (req, res) => {
     res.sendFile('index.html', { root: path.join(__dirname, '../client/build') })
