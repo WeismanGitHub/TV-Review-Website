@@ -1,8 +1,12 @@
 const axios = require('axios');
 
-const getTVList = async (req, res) => {
+const searchTV = async (req, res) => {
+}
+
+const getTV = async (req, res) => {
 }
 
 module.exports = {
-    getTVList
+    getTV,
+    searchTV,
 }
