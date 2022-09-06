@@ -12,9 +12,13 @@ const ReviewSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 1000,
     },
-    mediaName: {
-        type: String,
-        required: [true, 'Please provide the media name.']
+    mediaId: {
+        type: Number,
+        required: [true, 'Please provide the media id.']
+    },
+    creatorId: {
+        type: mongoose.Types.ObjectId,
+        required: [true, 'Please provide a creator id.']
     }
 })
 
