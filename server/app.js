@@ -36,12 +36,12 @@ app.use(cors())
 app.use('/api/authentication', authenticationRouter)
 app.use('/api/user', userRouter)
 app.use('/api/tv', TVRouter)
+app.use('/api', notFoundMiddleware)
 
 app.get('*', (req, res) => {
     res.sendFile('index.html', { root: path.join(__dirname, '../client/build') })
 })
 
-app.use(notFoundMiddleware)
 app.use(errorHandler)
 
 try {
