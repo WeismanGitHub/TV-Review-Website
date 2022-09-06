@@ -17,13 +17,17 @@ const searchTV = async (req, res) => {
 }
 
 const getShow = async (req, res) => {
-    const result = await axios.get(`https://api.themoviedb.org/3/tv/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)
-    console.log(result)
+    const result = (await axios.get(`https://api.themoviedb.org/3/tv/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
+
+    res.status(200)
+    .json(result)
 }
 
 const getMovie = async (req, res) => {
-    const result = await axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)
-    console.log(result)
+    const result = (await axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
+
+    res.status(200)
+    .json(result)
 }
 
 module.exports = {
