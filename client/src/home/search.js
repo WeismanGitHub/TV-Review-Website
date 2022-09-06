@@ -13,12 +13,12 @@ function Search() {
                 axios.get(`api/tv/search/${search}`)
                 .then(res => setResults(res.data))
                 .catch(err => toast.error(err.response.data))
-                }
+            }
         }, 500);
     
         return () => clearTimeout(delayedSearch)
-      }, [search])
-    
+    }, [search])
+
     return (<>
         <input
             type='text'
@@ -30,7 +30,9 @@ function Search() {
         />
         <br/>
         <ul class='searchResults'>
-            { results.map((result) => <li key={result.id}><a class='searchResult' href={`/${result.id}`}>{result.title}</a></li>) }
+            {
+                search !== '' && !results.length ? 'no results...' : results.map((result) => <li key={result.id}><a class='searchResult' href={`/${result.id}`}>{result.title}</a></li>)
+            }
         </ul>
     </>)
 }
