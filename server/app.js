@@ -12,6 +12,7 @@ require("dotenv").config()
 
 const authenticationRouter = require('./routers/authentication-router')
 const errorHandler = require('./middleware/error-handler')
+const notFoundMiddleware = require('./middleware/not-found-middleware')
 const userRouter = require('./routers/user-router')
 const TVRouter = require('./routers/tv-router')
 
@@ -40,6 +41,7 @@ app.get('*', (req, res) => {
     res.sendFile('index.html', { root: path.join(__dirname, '../client/build') })
 })
 
+app.use(notFoundMiddleware)
 app.use(errorHandler)
 
 try {
