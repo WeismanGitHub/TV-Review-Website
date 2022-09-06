@@ -1,10 +1,10 @@
 const DuplicateKeyError = require('../errors/duplicate-key-error')
 const UnauthorizedError = require('../errors/unauthorized-error')
-const UserSchema = require('../schemas/user-schema')
+const UserModel = require('../models/user-model')
 
 const updateUser = async (req, res) => {
     const { newName, newPassword, currentPassword} = req.body
-    const user = await UserSchema.findById(req.userId)
+    const user = await UserModel.findById(req.userId)
     
     const passwordIsCorrect = await user.checkPassword(currentPassword)
     
@@ -35,7 +35,7 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    await UserSchema.deleteOne({ _id: req.userId })
+    await UserModel.deleteOne({ _id: req.userId })
 
     res.status(200)
     .clearCookie('token')
@@ -44,7 +44,7 @@ const deleteUser = async (req, res) => {
 
 // getSelf and getUser are separate because getSelf requires you be logged in.
 const getUser = async (req, res) => {
-    const user = await UserSchema.findById(req.params.userId).select('-password').lean()
+    const user = await UserModel.findById(req.params.userId).select('-password').lean()
 
     if (!user) throw new Error('User does not exist.')
 
@@ -53,7 +53,7 @@ const getUser = async (req, res) => {
 }
 
 const getSelf = async (req, res) => {
-   const user = await UserSchema.findById(req.userId).select('-password').lean()
+   const user = await UserModel.findById(req.userId).select('-password').lean()
 
    if (!user) throw new Error('User does not exist.')
 

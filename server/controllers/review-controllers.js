@@ -1,4 +1,4 @@
-const ReviewSchema = require('../schemas/review-schema')
+const ReviewModel = require('../models/review-model')
 
 const createReview = async (req, res) => {
 }
