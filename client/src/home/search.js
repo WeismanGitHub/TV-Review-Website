@@ -21,7 +21,7 @@ function Search() {
                     .then(res => setResults(res.data))
                     .catch(err => toast.error(err.response.data))
                     }
-                }, 1000);
+                }, 500);
             }}
         />
         <br/>
