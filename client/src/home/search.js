@@ -25,9 +25,8 @@ function Search() {
             }}
         />
         <br/>
-        <br/>
         <ul class='searchResults'>
-            { results.map((result) => <li key={result.id}><a href={`/${result.id}`}>{result.title}</a></li>) }
+            { results.map((result) => <li key={result.id}><a class='searchResult' href={`/${result.id}`}>{result.title}</a></li>) }
         </ul>
     </>)
 }
