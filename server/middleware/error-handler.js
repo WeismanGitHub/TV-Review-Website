@@ -5,7 +5,6 @@ const errorHandler = (err, req, res, next) => {
         return res.status(404).send('Not found!')
     }
 
-
     res.status(err.statusCode || 500).send(String(err.message))
 }
 
