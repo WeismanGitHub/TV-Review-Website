@@ -1,12 +1,24 @@
 import 'react-toastify/dist/ReactToastify.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 const axios = require('axios').default;
 
 function Search() {
     const [search, setSearch] = useState('')
     const [results, setResults] = useState([])
-    var delayTimer;
+
+    useEffect(() => {
+        const delayedSearch = setTimeout(function() {
+            if (search !== '') {
+                axios.get(`api/tv/search/${search}`)
+                .then(res => setResults(res.data))
+                .catch(err => toast.error(err.response.data))
+                }
+        }, 500);
+    
+        return () => clearTimeout(delayedSearch)
+      }, [search])
+    
     return (<>
         <input
             type='text'
@@ -14,14 +26,6 @@ function Search() {
             placeholder='search...'
             onChange={(event) => {
                 setSearch(event.target.value)
-                clearTimeout(delayTimer);
-                delayTimer = setTimeout(function() {
-                    if (event.target.value !== '') {
-                    axios.get(`api/tv/search/${event.target.value}`)
-                    .then(res => setResults(res.data))
-                    .catch(err => toast.error(err.response.data))
-                    }
-                }, 500);
             }}
         />
         <br/>
