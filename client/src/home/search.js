@@ -1,5 +1,6 @@
-import 'react-toastify/dist/ReactToastify.css';
 import React, { useState, useEffect } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link} from 'react-router-dom';
 import { toast } from 'react-toastify';
 const axios = require('axios').default;
 
@@ -31,7 +32,15 @@ function Search() {
         <br/>
         <ul class='searchResults'>
             {
-                !results.length && search !== '' ? <li>No Results</li> : results.map((result) => <li key={result.id}><a class='searchResult' href={`/${result.id}`}>{result.title}</a></li>)
+                !results.length && search !== '' ? <li>No Results</li> : results.map((result) => 
+                <li key={result.id}>
+                <Link class='searchResult'
+                    to={{ pathname: `/${result.id}` }}
+                    state={{ mediaType: result.media_type }}
+                >
+                    {result.title}
+                </Link>
+                </li>)
             }
         </ul>
     </>)
