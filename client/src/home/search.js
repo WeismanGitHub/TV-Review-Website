@@ -15,7 +15,7 @@ function Search() {
                 .then(res => setResults(res.data))
                 .catch(err => toast.error(err.response.data))
             }
-        }, 300);
+        }, 500);
     
         return () => clearTimeout(delayedSearch)
     }, [search])
@@ -32,15 +32,7 @@ function Search() {
         <br/>
         <ul class='searchResults'>
             {
-                !results.length && search !== '' ? <li>No Results</li> : results.map((result) => 
-                <li key={result.id}>
-                <Link class='searchResult'
-                    to={{ pathname: `/${result.id}` }}
-                    state={{ tvType: result.media_type }}
-                >
-                    {result.title}
-                </Link>
-                </li>)
+                search !== '' && !results.length ? 'no results...' : results.map((result) => <li key={result.id}><a class='searchResult' href={`/${result.media_type == 'movie' ? 'movie' : 'show'}/${result.id}`}>{result.title}</a></li>)
             }
         </ul>
     </>)
