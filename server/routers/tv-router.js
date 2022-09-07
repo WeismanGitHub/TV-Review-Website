@@ -1,10 +1,9 @@
-const { getMovie, getShow, searchTV } = require('../controllers/tv-controllers')
+const { getTV, searchTV } = require('../controllers/tv-controllers')
 const express = require('express')
 
 const router = express.Router()
 
-router.route('/show/:id').get(getShow)
-router.route('/movie/:id').get(getMovie)
 router.route('/search/:phrase').get(searchTV)
+router.route('/:tvType/:id').get(getTV)
 
 module.exports = router
