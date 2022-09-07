@@ -14,7 +14,7 @@ function Search() {
                 .then(res => setResults(res.data))
                 .catch(err => toast.error(err.response.data))
             }
-        }, 500);
+        }, 300);
     
         return () => clearTimeout(delayedSearch)
     }, [search])
@@ -31,7 +31,7 @@ function Search() {
         <br/>
         <ul class='searchResults'>
             {
-                search !== '' && !results.length ? 'no results...' : results.map((result) => <li key={result.id}><a class='searchResult' href={`/${result.id}`}>{result.title}</a></li>)
+                !results.length && search !== '' ? <li>No Results</li> : results.map((result) => <li key={result.id}><a class='searchResult' href={`/${result.id}`}>{result.title}</a></li>)
             }
         </ul>
     </>)
