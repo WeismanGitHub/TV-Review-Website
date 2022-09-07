@@ -36,7 +36,7 @@ function Search() {
                 <li key={result.id}>
                 <Link class='searchResult'
                     to={{ pathname: `/${result.id}` }}
-                    state={{ mediaType: result.media_type }}
+                    state={{ tvType: result.media_type }}
                 >
                     {result.title}
                 </Link>
