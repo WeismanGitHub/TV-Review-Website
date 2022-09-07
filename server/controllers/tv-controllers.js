@@ -15,18 +15,20 @@ const searchTV = async (req, res) => {
     res.status(200).json(results)
 }
 
-const getTV = async (req, res) => {
-    if (req.body.mediaType == 'movie') {
-        var result = (await axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
-    } else {
-        var result = (await axios.get(`https://api.themoviedb.org/3/tv/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
-    }
+const getShow = async (req, res) => {
+    const result = (await axios.get(`https://api.themoviedb.org/3/tv/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
 
     res.status(200).json(result)
 }
 
+const getMovie = async (req, res) => {
+    const result = (await axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
+
+    res.status(200).json(result)
+}
 
 module.exports = {
     searchTV,
-    getTV
+    getShow,
+    getMovie,
 }
