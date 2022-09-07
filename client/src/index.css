@@ -73,3 +73,14 @@ li {
 .searchResult {
     background-color: rgb(197, 215, 239);
 }
+
+.overview {
+    overflow-wrap: break-word;
+    margin: 0 auto;
+    width: 400px;
+}
+
+hr.rounded {
+    margin: 0 auto;
+    width: 350px;
+}
