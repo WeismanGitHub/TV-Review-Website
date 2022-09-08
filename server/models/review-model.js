@@ -12,9 +12,9 @@ const ReviewSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 1000,
     },
-    mediaId: {
+    tvId: {
         type: Number,
-        required: [true, 'Please provide the media id.']
+        required: [true, 'Please provide the tv id.']
     },
     creatorId: {
         type: mongoose.Types.ObjectId,
