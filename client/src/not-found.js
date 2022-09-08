@@ -9,4 +9,4 @@ function NotFound() {
     </>)
 }
 
-export default Home;
+export default NotFound;
