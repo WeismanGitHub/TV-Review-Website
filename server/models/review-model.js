@@ -20,7 +20,7 @@ const ReviewSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide a creator id.']
     },
-    tvType: {
+    type: {
         type: String,
         required: [true, 'Please provide a tv type. [Movie, Show]'],
         enum: ['show', 'movie']
