@@ -104,3 +104,17 @@ hr.rounded {
     height: 300px;
     width: 400px;
 }
+
+.createReviewButton {
+    background-color: rgb(197, 215, 239);
+    padding:  0px 8px 0px 8px;
+    font-size: 150%;
+    border: 1px black solid;
+    border-radius: 100px;
+    color: black;
+}
+
+.createReviewButton:hover {
+    filter: brightness(95%);
+    cursor: pointer;
+}
