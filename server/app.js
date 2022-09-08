@@ -11,8 +11,9 @@ require('express-async-errors')
 require("dotenv").config()
 
 const authenticationRouter = require('./routers/authentication-router')
-const errorHandler = require('./middleware/error-handler')
 const notFoundMiddleware = require('./middleware/not-found-middleware')
+const reviewRouter = require('./routers/review-router')
+const errorHandler = require('./middleware/error-handler')
 const userRouter = require('./routers/user-router')
 const TVRouter = require('./routers/tv-router')
 
@@ -34,6 +35,7 @@ app.use(compression())
 app.use(cors())
 
 app.use('/api/authentication', authenticationRouter)
+app.use('/api/review', reviewRouter)
 app.use('/api/user', userRouter)
 app.use('/api/tv', TVRouter)
 app.use('/api', notFoundMiddleware)
