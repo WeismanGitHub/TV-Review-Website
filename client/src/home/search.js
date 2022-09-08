@@ -32,7 +32,7 @@ function Search() {
         <br/>
         <ul class='searchResults'>
             {
-                search !== '' && !results.length ? 'no results...' : results.map((result) => <li key={result.id}><a class='searchResult' href={`/${result.media_type == 'movie' ? 'movie' : 'show'}/${result.id}`}>{result.title}</a></li>)
+                search !== '' && !results.length ? <li>No Results</li> : results.map((result) => <li key={result.id}><a class='searchResult' href={`/${result.media_type == 'movie' ? 'movie' : 'show'}/${result.id}`}>{result.title}</a></li>)
             }
         </ul>
     </>)
