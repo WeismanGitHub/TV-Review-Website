@@ -1,7 +1,7 @@
 const ReviewModel = require('../models/review-model')
 
 const createReview = async (req, res) => {
-    await reviewModel.create(req.body)
+    await ReviewModel.create(req.body)
 
     res.status(200).end()
 }
