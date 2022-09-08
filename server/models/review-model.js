@@ -12,13 +12,18 @@ const ReviewSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 1000,
     },
-    mediaId: {
+    tvId: {
         type: Number,
-        required: [true, 'Please provide the media id.']
+        required: [true, 'Please provide the tv id.']
     },
     creatorId: {
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide a creator id.']
+    },
+    tvType: {
+        type: String,
+        required: [true, 'Please provide a tv type. [Movie, Show]'],
+        enum: ['show', 'movie']
     }
 })
 
