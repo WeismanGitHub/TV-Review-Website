@@ -1,6 +1,10 @@
+const reviewModel = require('../models/review-model')
 const ReviewModel = require('../models/review-model')
 
 const createReview = async (req, res) => {
+    await reviewModel.create(req.body)
+
+    res.status(200).end()
 }
 
 const deleteReview= async (req, res) => {
