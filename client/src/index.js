@@ -18,7 +18,7 @@ root.render(
                 <Route exact path='/' element={<Home/>}/>
                 <Route exact path='/account' element={<Self/>}/>
                 <Route exact path='/authentication' element={Authentication}/>
-                <Route exact path='/:tvType/:id' element={<TVPage/>}/>
+                <Route exact path='/:type/:id' element={<TVPage/>}/>
                 <Route path='*' element={<NotFound/>}/>
             </Routes>
         </Router>

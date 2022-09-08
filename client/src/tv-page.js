@@ -6,13 +6,13 @@ import Show from './tv-pages/show'
 import NavBar from './navbar'
 
 function TVPage() {
-    const { id, tvType } = useParams();
+    const { id, type } = useParams();
 
     return (<>
         <NavBar/>
         <br/>
-        { tvType == 'movie' ? <Movie id={id}/> : <Show id={id}/>}
-        <Reviews/>
+        { type == 'movie' ? <Movie id={id}/> : <Show id={id}/>}
+        <Reviews id={id} type={type}/>
     </>)
 }
 
