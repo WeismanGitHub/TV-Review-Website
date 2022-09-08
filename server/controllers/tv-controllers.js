@@ -16,10 +16,10 @@ const searchTV = async (req, res) => {
 }
 
 const getTV = async (req, res) => {
-    const tvType = req.params.tvType == 'movie' ? 'movie' : 'tv'
-    let result = (await axios.get(`https://api.themoviedb.org/3/${tvType}/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
+    const type = req.params.type == 'movie' ? 'movie' : 'tv'
+    let result = (await axios.get(`https://api.themoviedb.org/3/${type}/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
 
-    if (tvType == 'movie') {
+    if (type == 'movie') {
         result = {
             title: result.original_name || result.original_title || result.name,
             genres: result.genres.map(genre => genre.name).join(', '),
