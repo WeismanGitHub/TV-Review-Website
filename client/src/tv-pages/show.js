@@ -1,4 +1,3 @@
-import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from 'react';
 const axios = require('axios').default;
 
