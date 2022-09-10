@@ -4,8 +4,9 @@ import { createRoot } from 'react-dom/client'
 import './index.css';
 
 import Authentication from './authentication'
-import TVPage from './tv-page'
+import CreateReview from './create-review'
 import NotFound from './not-found'
+import TVPage from './tv-page'
 import Self from './self'
 import Home from './home'
 
@@ -17,7 +18,8 @@ root.render(
             <Routes>
                 <Route exact path='/' element={<Home/>}/>
                 <Route exact path='/account' element={<Self/>}/>
-                <Route exact path='/authentication' element={Authentication}/>
+                <Route exact path='/authentication' element={Authentication}/>♂
+                <Route exact path='/review' element={<CreateReview/>}/>
                 <Route exact path='/:type/:id' element={<TVPage/>}/>
                 <Route path='*' element={<NotFound/>}/>
             </Routes>
