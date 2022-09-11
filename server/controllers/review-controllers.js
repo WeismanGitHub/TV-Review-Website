@@ -15,7 +15,10 @@ const deleteReview= async (req, res) => {
 }
 
 const getReviews = async (req, res) => {
-    const reviews = await ReviewModel.find({ type: req.params.type, tvId: req.params.id }).lean()
+    const reviews = (await ReviewModel.find({ type: req.params.type, tvId: req.params.id }).lean()).map(review => {
+        review.editable = req.userId == review.creatorId
+        return review
+    })
 
     res.status(200).json(reviews)
 }
