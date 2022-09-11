@@ -1,4 +1,6 @@
+const authenticationMiddleware = require('../middleware/authentication-middleware')
 const express = require('express')
+
 const {
     updateReview,
     createReview,
@@ -8,9 +10,9 @@ const {
 
 const router = express.Router()
 
-router.route('/').post(createReview)
-router.route('/update/:id').post(updateReview)
-router.route('/delete/:id').post(deleteReview)
+router.route('/').post(authenticationMiddleware, createReview)
+router.route('/update/:id').post(authenticationMiddleware, updateReview)
+router.route('/delete/:id').post(authenticationMiddleware, deleteReview)
 router.route('/:type/:id').get(getReviews)
 
 module.exports = router
