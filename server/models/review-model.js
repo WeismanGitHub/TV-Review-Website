@@ -16,7 +16,7 @@ const ReviewSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please provide the tv id.']
     },
-    creatorId: {
+    userId: {
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide a creator id.']
     },
