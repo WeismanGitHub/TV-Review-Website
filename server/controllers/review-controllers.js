@@ -3,7 +3,7 @@ const ReviewModel = require('../models/review-model')
 const createReview = async (req, res) => {
     await ReviewModel.create({
         body: req.body.body,
-        creatorId: req.userId,
+        userId: req.userId,
         tvId: req.body.tvId,
         type: req.body.type,
     })
