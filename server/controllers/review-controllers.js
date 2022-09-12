@@ -26,9 +26,14 @@ const getReviews = async (req, res) => {
 const updateReview = async (req, res) => {
 }
 
+const vote = async(req, res) => {
+
+}
+
 module.exports = {
     updateReview,
     createReview,
     deleteReview,
     getReviews,
+    vote
 }
