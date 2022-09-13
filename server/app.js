@@ -50,7 +50,7 @@ try {
     const port = process.env.PORT || 5000
     mongoose.connect(process.env.LOCAL_MONGO_URI, { autoIndex: true })
     console.log('Connected to database...')
-    app.listen(port, console.log(`listening on port ${port}...`))
+    app.listen(port, console.log(`Listening on port ${port}...`))
 } catch (err) {
     console.error(err)
 }
