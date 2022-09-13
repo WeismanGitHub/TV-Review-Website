@@ -28,11 +28,15 @@ const updateReview = async (req, res) => {
 }
 
 const vote = async (req, res) => {
-    await VoteModel.create({
-        userId: req.userId,
-        reviewId: req.params.id,
-        type: req.body.type
-    })
+    await VoteModel.updateOne(
+        { userId: req.userId, reviewId: req.params.id },
+        {
+            userId: req.userId,
+            reviewId: req.params.id,
+            type: req.body.type
+        },
+        { upsert: true }
+    )
 
     res.status(200).end()
 }
