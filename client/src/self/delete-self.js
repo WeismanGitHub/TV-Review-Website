@@ -10,7 +10,7 @@ function DeleteSelf() {
         event.preventDefault();
 
         if (window.confirm('Are you sure you want to delete your account?')) {
-            axios.post('/api/user/delete')
+            axios.delete('/api/user/')
             .then(res => {
                 navigate('/authentication');
             }).catch(err => {
