@@ -3,15 +3,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 const axios = require('axios').default;
 
-function CreateReview() {
+function EditReview() {
     const navigate = useNavigate();
     const location = useLocation();
 
     function onSubmit(event) {
         event.preventDefault();
-        axios.post('/api/review', {
+        axios.patch('/api/review', {
             body: event.target[0].value,
-            ...location.state
+            _id: location.state._id
         }).then(res =>
             navigate(-1)
         ).catch(error =>
@@ -22,15 +22,15 @@ function CreateReview() {
     return (
         <div>
             <br/>
-            <h2>Write a review!</h2>
+            <h2>Edit Review!</h2>
             <form onSubmit={onSubmit}>
                 <br/>
-                <textarea name='body' placeholder="Write a review!" maxlength='1000' minlength='1' rows='10' cols='75'/>
+                <textarea name='body' text={location.state.body} maxlength='1000' minlength='1' rows='10' cols='75'/>
                 <br/>
-                <button type='submit'>Post</button>
+                <button type='submit'>Update</button>
             </form>
         </div>
     )
 }
 
-export default CreateReview;
+export default EditReview;
