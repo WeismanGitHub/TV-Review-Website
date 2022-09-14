@@ -6,7 +6,7 @@ function UpdateSelf({ self }) {
     async function onSubmit(event) {
         event.preventDefault();
         
-        axios.post('/api/user/update', {
+        axios.patch('/api/user/', {
             currentPassword: event.target[0].value,
             newName: event.target[1].value,
             newPassword: event.target[2].value
