@@ -18,8 +18,22 @@ function Reviews({ id, type }) {
         .catch(err => toast.error(err.response.data))
     }, [])
     
-    function onClick() {
-        navigate('/review', { state: { tvId: id, type: type } });
+    function createReview() {
+        navigate('/review/create', { state: { tvId: id, type: type } });
+    }
+
+    function editReview(reviewId) {
+        navigate('/review/edit', { state: { _id:  reviewId} });
+    }
+
+    function deleteReview(reviewId) {
+        if (window.confirm('Are you sure you want to delete review?')) {
+            axios.delete('/api/review/', { _id: reviewId })
+            .then(res => toast.success('Deleted!'))
+            .catch(err => toast.error(err.response.data))
+        }
+
+        navigate('/review/edit', { state: { _id:  reviewId} });
     }
 
     function upvote(reviewId) {
@@ -29,8 +43,8 @@ function Reviews({ id, type }) {
     }
 
     function downvote(reviewId) {
-        axios.post(`/api/review/vote/${reviewId}`, { type: 'downvote'})
-        .then(res => toast.success('Downvoted!'))
+        axios.post(`/api/review/vote/${reviewId}`, { type: 'downvote' })
+        .then(res => toast.error('Downvoted!'))
         .catch(err => toast.error(err.response.data))
     }
 
@@ -40,15 +54,15 @@ function Reviews({ id, type }) {
                 <a class='author' href={`/user/${review.creatorId}`}>author</a>
                 <br/>
                 <div class='reviewBody'>{review.body}</div>
-                <div onClick={event => upvote(review._id)} class='vote'>☑</div> {review.score} <div onClick={event => downvote(review._id)} class='vote'>☒</div>
-                {review.editable ? <><div class='editButton'>Edit</div> <div class='editButton'>Delete</div></> : null}
+                <div onClick={() => upvote(review._id)} class='vote'>☑</div> {review.score} <div onClick={() => downvote(review._id)} class='vote'>☒</div>
+                {review.editable ? <><div onClick={() => editReview(review._id)} class='editButton'>Edit</div> <div class='editButton' onClick={() => deleteReview(review._id)}>Delete</div></> : null}
             </div>
         </>)
     }
 
     return (<>
         <div class='halfColumn'>
-            {token ? <a onClick= {onClick} class='createReviewButton'>+</a> : <h1>Sign in to post a review!</h1>}
+            {token ? <a onClick= {createReview} class='createReviewButton'>+</a> : <h1>Sign in to post a review!</h1>}
             <br/>
             {reviews.length ? reviews.map(review => displayReview(review)) : <h1>No Reviews</h1>}
         </div>
