@@ -10,9 +10,11 @@ const {
 
 const router = express.Router()
 
-router.route('/update').post(authenticationMiddleware, updateUser)
-router.route('/delete').post(authenticationMiddleware, deleteUser)
-router.route('/').get(authenticationMiddleware, getSelf)
+router.route('/')
+.get(authenticationMiddleware, getSelf)
+.delete(authenticationMiddleware, deleteUser)
+.patch(authenticationMiddleware, updateUser)
+
 router.route('/:userId').get(getUser)
 
 module.exports = router
