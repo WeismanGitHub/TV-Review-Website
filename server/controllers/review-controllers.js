@@ -13,6 +13,7 @@ const createReview = async (req, res) => {
 }
 
 const deleteReview= async (req, res) => {
+    await ReviewModel.deleteOne({ _id: req.body._id})
 }
 
 const getReviews = async (req, res) => {
@@ -29,10 +30,10 @@ const updateReview = async (req, res) => {
 
 const vote = async (req, res) => {
     await VoteModel.updateOne(
-        { userId: req.userId, reviewId: req.params.id },
+        { userId: req.userId, reviewId: req.body.id },
         {
             userId: req.userId,
-            reviewId: req.params.id,
+            reviewId: req.body.id,
             type: req.body.type
         },
         { upsert: true }
