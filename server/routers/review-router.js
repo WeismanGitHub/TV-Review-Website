@@ -12,12 +12,12 @@ const {
 
 const router = express.Router()
 
-router.route('/').post(authenticationMiddleware, createReview)
-router.route('/vote/:id').post(authenticationMiddleware, vote)
-router.route('/:type/:id').get(reviewsMiddleware, getReviews)
-
-router.route('/:id')
+router.route('/')
+.post(authenticationMiddleware, createReview)
 .patch(authenticationMiddleware, updateReview)
 .delete(authenticationMiddleware, deleteReview)
+
+router.route('/vote/').post(authenticationMiddleware, vote)
+router.route('/:type/:id').get(reviewsMiddleware, getReviews)
 
 module.exports = router
