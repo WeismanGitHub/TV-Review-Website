@@ -17,7 +17,7 @@ router.route('/')
 .patch(authenticationMiddleware, updateReview)
 .delete(authenticationMiddleware, deleteReview)
 
-router.route('/vote/').post(authenticationMiddleware, vote)
+router.route('/vote').post(authenticationMiddleware, vote)
 router.route('/:type/:id').get(reviewsMiddleware, getReviews)
-
+g
 module.exports = router
