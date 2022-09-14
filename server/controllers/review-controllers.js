@@ -29,15 +29,32 @@ const updateReview = async (req, res) => {
 }
 
 const vote = async (req, res) => {
-    await VoteModel.updateOne(
-        { userId: req.userId, reviewId: req.body.reviewId },
-        {
+    const vote = await VoteModel.findOne({ userId: req.userId, reviewId: req.body.reviewId })
+
+    if (!vote) {
+        await VoteModel.create({
             userId: req.userId,
             reviewId: req.body.reviewId,
             type: req.body.type
-        },
-        { upsert: true }
-    )
+        })
+    } else {
+        await VoteModel.updateOne(
+            { userId: req.userId, reviewId: req.body.reviewId },
+            {
+                userId: req.userId,
+                reviewId: req.body.reviewId,
+                type: req.body.type
+            }
+        )
+
+        if (vote.type !== req.body.type) {
+            await ReviewModel.updateOne(
+                { _id: req.body.reviewId },
+                 { $inc : { 'score' : req.body.type === 'upvote' ?  1 : -1 } }
+             )
+        }
+    }
+
 
     res.status(200).end()
 }
