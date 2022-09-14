@@ -118,3 +118,39 @@ hr.rounded {
     filter: brightness(95%);
     cursor: pointer;
 }
+
+.review {
+    text-align:center;
+    font-size: 150%;
+    margin: 5px;
+}
+
+.vote {
+    background-color: rgb(197, 215, 239);
+    border: 1px black solid;
+    width: fit-content;
+    display: inline;
+    margin-top: 5px;
+    color: black;
+    padding: 0px;
+}
+
+.vote:hover {
+    filter: brightness(95%);
+    cursor: pointer;
+}
+
+.author {
+    text-decoration: underline;
+    font-size: 75%;
+}
+
+.reviewBody {
+    border: 1px black solid;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 300px;
+    max-width: 400px;
+    padding: 5px;
+}
