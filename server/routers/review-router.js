@@ -14,8 +14,10 @@ const router = express.Router()
 
 router.route('/').post(authenticationMiddleware, createReview)
 router.route('/vote/:id').post(authenticationMiddleware, vote)
-router.route('/update/:id').post(authenticationMiddleware, updateReview)
-router.route('/delete/:id').post(authenticationMiddleware, deleteReview)
 router.route('/:type/:id').get(reviewsMiddleware, getReviews)
+
+router.route('/:id')
+.patch(authenticationMiddleware, updateReview)
+.delete(authenticationMiddleware, deleteReview)
 
 module.exports = router
