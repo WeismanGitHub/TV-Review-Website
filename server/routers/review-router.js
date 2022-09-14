@@ -19,5 +19,5 @@ router.route('/')
 
 router.route('/vote').post(authenticationMiddleware, vote)
 router.route('/:type/:id').get(reviewsMiddleware, getReviews)
-g
+
 module.exports = router
