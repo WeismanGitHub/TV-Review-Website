@@ -11,7 +11,7 @@ function EditReview() {
         event.preventDefault();
         axios.patch('/api/review', {
             body: event.target[0].value,
-            _id: location.state._id
+            reviewId: location.state.reviewId
         }).then(res =>
             navigate(-1)
         ).catch(error =>

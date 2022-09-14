@@ -22,28 +22,26 @@ function Reviews({ id, type }) {
         navigate('/review/create', { state: { tvId: id, type: type } });
     }
 
-    function editReview(reviewId) {
-        navigate('/review/edit', { state: { _id:  reviewId} });
+    function editReview(reviewId, body) {
+        navigate('/review/edit', { state: { reviewId: reviewId, body: body } });
     }
 
     function deleteReview(reviewId) {
-        if (window.confirm('Are you sure you want to delete review?')) {
-            axios.delete('/api/review/', { _id: reviewId })
+        if (window.confirm('Are you sure you want to delete this review?')) {
+            axios.delete('/api/review', { _id: reviewId })
             .then(res => toast.success('Deleted!'))
             .catch(err => toast.error(err.response.data))
         }
-
-        navigate('/review/edit', { state: { _id:  reviewId} });
     }
 
     function upvote(reviewId) {
-        axios.post(`/api/review/vote/${reviewId}`, { type: 'upvote' })
+        axios.post('/api/review/vote', { type: 'upvote', reviewId: reviewId })
         .then(res => toast.success('Upvoted!'))
         .catch(err => toast.error(err.response.data))
     }
 
     function downvote(reviewId) {
-        axios.post(`/api/review/vote/${reviewId}`, { type: 'downvote' })
+        axios.post('/api/review/vote', { type: 'downvote', reviewId: reviewId })
         .then(res => toast.error('Downvoted!'))
         .catch(err => toast.error(err.response.data))
     }
@@ -55,7 +53,7 @@ function Reviews({ id, type }) {
                 <br/>
                 <div class='reviewBody'>{review.body}</div>
                 <div onClick={() => upvote(review._id)} class='vote'>☑</div> {review.score} <div onClick={() => downvote(review._id)} class='vote'>☒</div>
-                {review.editable ? <><div onClick={() => editReview(review._id)} class='editButton'>Edit</div> <div class='editButton' onClick={() => deleteReview(review._id)}>Delete</div></> : null}
+                {review.editable ? <><div onClick={() => editReview(review._id, review.body)} class='editButton'>Edit</div> <div class='editButton' onClick={() => deleteReview(review._id)}>Delete</div></> : null}
             </div>
         </>)
     }
