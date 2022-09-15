@@ -7,6 +7,7 @@ const {
     createReview,
     deleteReview,
     getReviews,
+    deleteVote,
     vote
 } = require('../controllers/review-controllers')
 
@@ -18,6 +19,7 @@ router.route('/')
 .delete(authenticationMiddleware, deleteReview)
 
 router.route('/vote').post(authenticationMiddleware, vote)
+.delete(authenticationMiddleware, deleteVote)
 router.route('/:type/:id').get(reviewsMiddleware, getReviews)
 
 module.exports = router

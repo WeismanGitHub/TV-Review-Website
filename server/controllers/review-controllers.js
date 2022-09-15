@@ -68,10 +68,17 @@ const vote = async (req, res) => {
     res.status(200).end()
 }
 
+const deleteVote = async (req, res) => {
+    await VoteModel.deleteOne({ userId: req.userId, reviewId: req.body.reviewId })
+
+    res.status(200).end()
+}
+
 module.exports = {
     updateReview,
     createReview,
     deleteReview,
     getReviews,
+    deleteVote,
     vote
 }
