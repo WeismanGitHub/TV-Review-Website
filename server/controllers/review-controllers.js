@@ -14,6 +14,8 @@ const createReview = async (req, res) => {
 
 const deleteReview= async (req, res) => {
     await ReviewModel.deleteOne({ _id: req.body.reviewId })
+
+    res.status(200).end()
 }
 
 const getReviews = async (req, res) => {
