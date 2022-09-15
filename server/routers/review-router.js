@@ -1,6 +1,6 @@
 const authenticationMiddleware = require('../middleware/authentication-middleware')
 const reviewsMiddleware = require('../middleware/reviews-middleware.js')
-const express = require('express')
+const { Router } = require('express')
 
 const {
     updateReview,
@@ -11,7 +11,7 @@ const {
     vote
 } = require('../controllers/review-controllers')
 
-const router = express.Router()
+const router = Router()
 
 router.route('/')
 .post(authenticationMiddleware, createReview)

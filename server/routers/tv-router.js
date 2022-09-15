@@ -1,7 +1,7 @@
 const { getTV, searchTV } = require('../controllers/tv-controllers')
-const express = require('express')
+const { Router } = require('express')
 
-const router = express.Router()
+const router = Router()
 
 router.route('/search/:phrase').get(searchTV)
 router.route('/:type/:id').get(getTV)

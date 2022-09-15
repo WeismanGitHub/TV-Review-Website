@@ -1,5 +1,5 @@
 const authenticationMiddleware = require('../middleware/authentication-middleware')
-const express = require('express')
+const { Router } = require('express')
 
 const {
     updateUser,
@@ -8,7 +8,7 @@ const {
     getSelf
 } = require('../controllers/user-controllers')
 
-const router = express.Router()
+const router = Router()
 
 router.route('/')
 .get(authenticationMiddleware, getSelf)
