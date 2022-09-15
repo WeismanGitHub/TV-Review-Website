@@ -22,7 +22,8 @@ const getReviews = async (req, res) => {
     const reviews = (await ReviewModel.find({ type: req.params.type, tvId: req.params.id })
     .lean().select('-tvId -type'))
     .map(review => {
-        review.editable = req.userId == review.creatorId
+        review.editable = req.userId == review.userId
+        console.log(review)
         return review
     })
 
