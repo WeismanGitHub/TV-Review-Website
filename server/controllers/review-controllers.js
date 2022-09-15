@@ -28,6 +28,12 @@ const getReviews = async (req, res) => {
 }
 
 const updateReview = async (req, res) => {
+    await ReviewModel.updateOne(
+        { _id: req.body.reviewId },
+        { body: req.body.body }
+    )
+
+    res.status(200).end()
 }
 
 const vote = async (req, res) => {
