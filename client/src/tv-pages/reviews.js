@@ -47,7 +47,7 @@ function Reviews({ id, type }) {
                 <br/>
                 <div class='reviewBody'>{review.body}</div>
                 <div onClick={() => vote(review._id, 'upvote')} class='vote'>☑</div> {review.score} <div onClick={() => vote(review._id, 'downvote')} class='vote'>☒</div>
-                {review.editable ? <><div onClick={() => editReview(review._id, review.body)} class='editButton'>Edit</div> <div class='editButton' onClick={() => deleteReview(review._id)}>Delete</div></> : null}
+                {review.editable && <><div onClick={() => editReview(review._id, review.body)} class='editButton'>Edit</div> <div class='editButton' onClick={() => deleteReview(review._id)}>Delete</div></>}
             </div>
         </>)
     }

@@ -18,7 +18,7 @@ function Show({ id }) {
             <hr class='rounded'/>
             <h3 class='overview'>{show.overview}</h3>
             <hr class='rounded'/>
-            {show.genres ? <h4>Genres: {show.genres}</h4>: null}
+            {show.genres && <h4>Genres: {show.genres}</h4>}
             <hr class='rounded'/>
             <h4>Total Episodes: {show.episodeCount}</h4>
             <br/>

@@ -36,8 +36,8 @@ function Search() {
                 setSearch(event.target.value)
             }}
         />
-        {page > 0 ? <div class='customButton' onClick={() => getResults(page - 1)}>Back</div> : null}
-        {search !== '' ? <div class='customButton' onClick={() => getResults(page + 1)}>Next</div> : null}
+        {page > 0 && <div class='customButton' onClick={() => getResults(page - 1)}>Back</div>}
+        {search !== '' && <div class='customButton' onClick={() => getResults(page + 1)}>Next</div>}
         <br/>
         <ul class='searchResults'>
             {

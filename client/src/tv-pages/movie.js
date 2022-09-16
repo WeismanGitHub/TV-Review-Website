@@ -18,7 +18,7 @@ function Movie({ id }) {
             <hr class='rounded'/>
             <h3 class='overview'>{movie.overview}</h3>
             <hr class='rounded'/>
-            {movie.genres ? <h4>Genres: {movie.genres}</h4>: null}
+            {movie.genres && <h4>Genres: {movie.genres}</h4>}
         </div>
     </>)
 }
