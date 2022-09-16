@@ -20,7 +20,7 @@ const TVRouter = require('./routers/tv-router')
 const app = express()
 const limiter = rateLimit({
     windowMs: 500,
-	max: 10,
+	max: 3,
 	standardHeaders: true,
 	legacyHeaders: false,
 })
