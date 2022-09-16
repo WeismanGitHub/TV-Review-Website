@@ -40,6 +40,7 @@ const updateReview = async (req, res) => {
 
 const vote = async (req, res) => {
     const vote = await VoteModel.findOne({ userId: req.userId, reviewId: req.body.reviewId })
+    .select('-_id vote').lean()
 
     if (!vote) {
         await VoteModel.create({
