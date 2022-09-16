@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link} from 'react-router-dom';
 import { toast } from 'react-toastify';
 const axios = require('axios').default;
 
 function Search() {
     const [search, setSearch] = useState('')
     const [results, setResults] = useState([])
+    const [page, setPage] = useState(0)
 
     useEffect(() => {
         const delayedSearch = setTimeout(function() {
@@ -20,6 +20,13 @@ function Search() {
         return () => clearTimeout(delayedSearch)
     }, [search])
 
+    const getResults = (pageToGet) => {
+        setPage(pageToGet)
+        axios.get(`api/tv/search/${search}?page=${pageToGet}`)
+        .then(res => setResults(res.data))
+        .catch(err => toast.error(err.response.data))
+    } 
+
     return (<>
         <input
             type='text'
@@ -29,6 +36,8 @@ function Search() {
                 setSearch(event.target.value)
             }}
         />
+        {page > 0 ? <div class='customButton' onClick={() => getResults(page - 1)}>Back</div> : null}
+        {search !== '' ? <div class='customButton' onClick={() => getResults(page + 1)}>Next</div> : null}
         <br/>
         <ul class='searchResults'>
             {
