@@ -17,10 +17,6 @@ function Reviews({ id, type }) {
         .then(res => setReviews(res.data))
         .catch(err => toast.error(err.response.data))
     }, [])
-    
-    function createReview() {
-        navigate('/review/create', { state: { tvId: id, type: type } });
-    }
 
     function deleteReview(reviewId) {
         if (window.confirm('Are you sure you want to delete this review?')) {
@@ -55,7 +51,7 @@ function Reviews({ id, type }) {
 
     return (<>
         <div class='halfColumn'>
-            {token ? <a onClick= {createReview} class='createReviewButton'>+</a> : <h1>Sign in to post a review!</h1>}
+            {token ? <a onClick= {navigate('/review/create', { state: { tvId: id, type: type } })} class='createReviewButton'>+</a> : <h1>Sign in to post a review!</h1>}
             <br/>
             {reviews.length ? reviews.map(review => displayReview(review)) : <h1>No Reviews</h1>}
         </div>
