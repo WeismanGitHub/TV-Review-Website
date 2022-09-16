@@ -27,4 +27,15 @@ const ReviewSchema = new mongoose.Schema({
     }
 })
 
+ReviewSchema.plugin(schema => {
+    schema.pre('findOneAndUpdate', setOptions);
+    schema.pre('updateMany', setOptions);
+    schema.pre('updateOne', setOptions);
+    schema.pre('update', setOptions);
+});
+
+function setOptions() {
+    this.setOptions({ runValidators: true });
+}
+
 module.exports = mongoose.model('reviews', ReviewSchema)
