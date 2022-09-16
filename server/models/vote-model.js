@@ -18,10 +18,16 @@ const VoteSchema = new mongoose.Schema({
 })
 
 VoteSchema.pre('save', async function() {
-    console.log(this)
     await ReviewModel.updateOne(
        { _id: this.reviewId },
         { $inc : {'score' : this.type === 'upvote' ?  1 : -1 } }
+    )
+})
+
+VoteSchema.pre('deleteOne', async function() {
+    await ReviewModel.updateOne(
+        { _id: this.reviewId },
+        { $inc: { 'score': this.type == 'upvote' ?  -1 : 1 } }
     )
 })
 
