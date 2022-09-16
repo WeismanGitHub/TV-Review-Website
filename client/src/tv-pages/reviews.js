@@ -51,7 +51,7 @@ function Reviews({ id, type }) {
 
     return (<>
         <div class='halfColumn'>
-            {token ? <a onClick= {navigate('/review/create', { state: { tvId: id, type: type } })} class='createReviewButton'>+</a> : <h1>Sign in to post a review!</h1>}
+            {token ? <a onClick= {() => navigate('/review/create', { state: { tvId: id, type: type } })} class='createReviewButton'>+</a> : <h1>Sign in to post a review!</h1>}
             <br/>
             {reviews.length ? reviews.map(review => displayReview(review)) : <h1>No Reviews</h1>}
         </div>
