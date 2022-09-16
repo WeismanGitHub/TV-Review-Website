@@ -20,8 +20,13 @@ const deleteReview= async (req, res) => {
 }
 
 const getReviews = async (req, res) => {
+    const query = {
+        score: req.query.score == 'high' ? -1 : 1,
+        updatedAt: req.query.updatedAt == 'new' ? -1 : 1,
+    }
+
     const reviews = (await ReviewModel.find({ type: req.params.type, tvId: req.params.id })
-    .lean().select('-tvId -type'))
+    .sort(query).select('-tvId -type').lean())
     .map(review => {
         review.editable = req.userId == review.userId
         return review
@@ -47,7 +52,7 @@ const updateReview = async (req, res) => {
 
 const vote = async (req, res) => {
     const vote = await VoteModel.findOne({ userId: req.userId, reviewId: req.body.reviewId })
-    .select('-_id vote').lean()
+    .select('-_id type').lean()
 
     if (!vote) {
         await VoteModel.create({
