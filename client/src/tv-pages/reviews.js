@@ -28,21 +28,15 @@ function Reviews({ id, type }) {
 
     function deleteReview(reviewId) {
         if (window.confirm('Are you sure you want to delete this review?')) {
-            axios.delete('/api/review', { _id: reviewId })
+            axios.post('/api/review/delete', { reviewId: reviewId })
             .then(res => toast.success('Deleted!'))
             .catch(err => toast.error(err.response.data))
         }
     }
 
-    function upvote(reviewId) {
-        axios.post('/api/review/vote', { type: 'upvote', reviewId: reviewId })
-        .then(res => toast.success('Upvoted!'))
-        .catch(err => toast.error(err.response.data))
-    }
-
-    function downvote(reviewId) {
-        axios.post('/api/review/vote', { type: 'downvote', reviewId: reviewId })
-        .then(res => toast.error('Downvoted!'))
+    function vote(reviewId, type) {
+        axios.post('/api/review/vote', { type: type, reviewId: reviewId })
+        .then(res => console.log('[placeholder] change color of button'))
         .catch(err => toast.error(err.response.data))
     }
 
@@ -52,7 +46,7 @@ function Reviews({ id, type }) {
                 <a class='author' href={`/user/${review.creatorId}`}>author</a>
                 <br/>
                 <div class='reviewBody'>{review.body}</div>
-                <div onClick={() => upvote(review._id)} class='vote'>☑</div> {review.score} <div onClick={() => downvote(review._id)} class='vote'>☒</div>
+                <div onClick={() => vote(review._id, 'upvote')} class='vote'>☑</div> {review.score} <div onClick={() => vote(review._id, 'downvote')} class='vote'>☒</div>
                 {review.editable ? <><div onClick={() => editReview(review._id, review.body)} class='editButton'>Edit</div> <div class='editButton' onClick={() => deleteReview(review._id)}>Delete</div></> : null}
             </div>
         </>)
