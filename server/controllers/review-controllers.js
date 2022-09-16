@@ -23,7 +23,6 @@ const getReviews = async (req, res) => {
     .lean().select('-tvId -type'))
     .map(review => {
         review.editable = req.userId == review.userId
-        console.log(review)
         return review
     })
 
