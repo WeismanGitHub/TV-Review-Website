@@ -1,3 +1,4 @@
+const ValidationError = require('../errors/validation-error')
 const ReviewModel = require('../models/review-model')
 const VoteModel = require('../models/vote-model')
 
@@ -33,7 +34,13 @@ const updateReview = async (req, res) => {
     await ReviewModel.updateOne(
         { _id: req.body.reviewId },
         { body: req.body.body }
-    )
+    ).catch(err => {
+        if (err.name == 'ValidationError') {
+            throw new ValidationError('Body must be between 1 and 1000 characters.')
+        }
+        
+        throw new Error(err)
+    })
 
     res.status(200).end()
 }
