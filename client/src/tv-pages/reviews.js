@@ -22,10 +22,6 @@ function Reviews({ id, type }) {
         navigate('/review/create', { state: { tvId: id, type: type } });
     }
 
-    function editReview(reviewId, body) {
-        navigate('/review/edit', { state: { reviewId: reviewId, body: body } });
-    }
-
     function deleteReview(reviewId) {
         if (window.confirm('Are you sure you want to delete this review?')) {
             axios.post('/api/review/delete', { reviewId: reviewId })
@@ -46,8 +42,13 @@ function Reviews({ id, type }) {
                 <a class='author' href={`/user/${review.creatorId}`}>author</a>
                 <br/>
                 <div class='reviewBody'>{review.body}</div>
-                <div onClick={() => vote(review._id, 'upvote')} class='vote'>☑</div> {review.score} <div onClick={() => vote(review._id, 'downvote')} class='vote'>☒</div>
-                {review.editable && <><div onClick={() => editReview(review._id, review.body)} class='editButton'>Edit</div> <div class='editButton' onClick={() => deleteReview(review._id)}>Delete</div></>}
+                <div onClick={() => vote(review._id, 'upvote')} class='vote'>☑</div> 
+                {review.score} 
+                <div onClick={() => vote(review._id, 'downvote')} class='vote'>☒</div>
+                {review.editable && <>
+                    <div onClick={() => navigate('/review/edit', { state: { reviewId: review._id, body: review.body } })} class='editButton'>Edit</div> 
+                    <div class='editButton' onClick={() => deleteReview(review._id)}>Delete</div>
+                </>}
             </div>
         </>)
     }
