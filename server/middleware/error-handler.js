@@ -5,10 +5,6 @@ const errorHandler = (err, req, res, next) => {
         return res.status(404).send('Not found!')
     }
 
-    if (err.code == 'ENOTFOUND') {
-        return res.status(500).send('Error getting results.')
-    }
-
     res.status(err.statusCode || 500).send(String(err.message))
 }
 
