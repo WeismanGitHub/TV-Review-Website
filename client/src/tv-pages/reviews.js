@@ -38,8 +38,8 @@ function Reviews({ id, type }) {
                 <a class='author' href={`/user/${review.creatorId}`}>author</a>
                 <br/>
                 <div class='reviewBody'>{review.body}</div>
-                <div onClick={() => vote(review._id, 'upvote')} class='vote'>☑</div> 
-                {review.score} 
+                <div onClick={() => vote(review._id, 'upvote')} class='vote'>☑</div>
+                {` ${review.score} `}
                 <div onClick={() => vote(review._id, 'downvote')} class='vote'>☒</div>
                 {review.editable && <>
                     <div onClick={() => navigate('/review/edit', { state: { reviewId: review._id, body: review.body } })} class='editButton'>Edit</div> 
