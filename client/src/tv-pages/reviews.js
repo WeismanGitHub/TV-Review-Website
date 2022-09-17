@@ -9,11 +9,13 @@ const cookie = new Cookie();
 
 function Reviews({ id, type }) {
     const token = cookie.get('token')
+    const updatedAtFilter = cookie.get('updatedAt_filter') || 'high'
+    const scoreFilter = cookie.get('score_filter') || 'new'
     const [reviews, setReviews] = useState([])
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`/api/review/${type}/${id}`)
+        axios.get(`/api/review/${type}/${id}?score=${scoreFilter}&updatedAt=${updatedAtFilter}`)
         .then(res => setReviews(res.data))
         .catch(err => toast.error(err.response.data))
     }, [])
