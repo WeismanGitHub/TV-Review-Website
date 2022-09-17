@@ -23,12 +23,6 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please provide a score.'],
         default: 0
-    },
-    level: {
-        type: String,
-        required: [true, 'Please provide a tier.'],
-        default: 'user',
-        enum: ['user', 'moderator', 'administrator']
     }
 }, { timestamps: true })
 
