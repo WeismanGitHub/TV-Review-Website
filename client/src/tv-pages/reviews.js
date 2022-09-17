@@ -37,7 +37,7 @@ function Reviews({ id, type }) {
     function displayReview(review) {
         return (<>
             <div class='review'>
-                <a class='author' href={`/user/${review.creatorId}`}>author</a>
+                <a class='author' href={`/user/${review.userId}`}>author</a>
                 <br/>
                 <div class='reviewBody'>{review.body}</div>
                 <div onClick={() => vote(review._id, 'upvote')} class='vote'>☑</div>
