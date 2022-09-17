@@ -25,7 +25,7 @@ const ReviewSchema = new mongoose.Schema({
         required: [true, 'Please provide a tv type. [Movie, Show]'],
         enum: ['show', 'movie']
     }
-}, { timestamps: true })
+}, { timestamps: { createdAt: false, updatedAt: true } })
 
 ReviewSchema.plugin(schema => {
     schema.pre('findOneAndUpdate', setOptions);
