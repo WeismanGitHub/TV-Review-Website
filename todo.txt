@@ -1,4 +1,4 @@
 make master account
 make moderator account
 report buttons/moderation system
-add next and back buttons to search
+add filter frontend for reviews
