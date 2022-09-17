@@ -6,7 +6,7 @@ const axios = require('axios').default;
 function Search() {
     const [search, setSearch] = useState('')
     const [results, setResults] = useState([])
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
 
     useEffect(() => {
         const delayedSearch = setTimeout(function() {
@@ -36,7 +36,7 @@ function Search() {
                 setSearch(event.target.value)
             }}
         />
-        {page > 0 && <div class='customButton' onClick={() => getNextPage(page - 1)}>Back</div>}
+        {page > 1 && <div class='customButton' onClick={() => getNextPage(page - 1)}>Back</div>}
         {search !== '' && <div class='customButton' onClick={() => getNextPage(page + 1)}>Next</div>}
         <br/>
         <ul class='searchResults'>
