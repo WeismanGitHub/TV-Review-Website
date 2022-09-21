@@ -14,6 +14,8 @@ function Search() {
                 axios.get(`api/tv/search/${search}`)
                 .then(res => setResults(res.data))
                 .catch(err => toast.error(err.response.data))
+            } else {
+                setResults([])
             }
         }, 500);
     
@@ -37,7 +39,7 @@ function Search() {
             }}
         />
         {page > 1 && <div class='customButton' onClick={() => getNextPage(page - 1)}>Back</div>}
-        {search !== '' && <div class='customButton' onClick={() => getNextPage(page + 1)}>Next</div>}
+        {Boolean(results.length) && <div class='customButton' onClick={() => getNextPage(page + 1)}>Next</div>}
         <br/>
         <ul class='searchResults'>
             {
