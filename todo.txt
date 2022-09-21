@@ -1,3 +1,0 @@
-make moderation page
-report buttons/moderation system
-add filter frontend for reviews
