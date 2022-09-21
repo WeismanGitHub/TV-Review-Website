@@ -9,8 +9,8 @@ const cookie = new Cookie();
 
 function Reviews({ id, type }) {
     const token = cookie.get('token')
-    const updatedAtFilter = cookie.get('updatedAt_filter') || 'high'
-    const scoreFilter = cookie.get('score_filter') || 'new'
+    const [scoreFilter, setScoreFilter] = useState(cookie.get('updatedAt_filter') || 'high')
+    const [updatedAtFilter, setUpdatedAtFilter] = useState(cookie.get('score_filter') || 'new')
     const [reviews, setReviews] = useState([])
     const navigate = useNavigate();
 
@@ -19,6 +19,19 @@ function Reviews({ id, type }) {
         .then(res => setReviews(res.data))
         .catch(err => toast.error(err.response.data))
     }, [])
+
+    function UpdatedAtFilterCheckBox() {
+        return (<>
+            <input type='checkbox'
+                defaultChecked={updatedAtFilter == 'new'}
+                onChange={() => {
+                    cookie.set('score_filter', updatedAtFilter == 'new' ? 'old' : 'new')
+                    setUpdatedAtFilter(updatedAtFilter == 'new' ? 'old' : 'new')
+                }}
+            />
+            newest to oldest
+        </>);
+    }
 
     function deleteReview(reviewId) {
         if (window.confirm('Are you sure you want to delete this review?')) {
@@ -56,6 +69,8 @@ function Reviews({ id, type }) {
     return (<>
         <div class='halfColumn'>
             {token ? createReviewButton : <h1>Sign in to post a review!</h1>}
+            <br/>
+            <UpdatedAtFilterCheckBox/>
             <br/>
             {reviews.length ? reviews.map(review => displayReview(review)) : <h1>No Reviews</h1>}
         </div>
