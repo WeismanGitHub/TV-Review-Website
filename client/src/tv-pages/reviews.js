@@ -9,8 +9,8 @@ const cookie = new Cookie();
 
 function Reviews({ id, type }) {
     const token = cookie.get('token')
-    const [scoreFilter, setScoreFilter] = useState(cookie.get('updatedAt_filter') || 'high')
-    const [updatedAtFilter, setUpdatedAtFilter] = useState(cookie.get('score_filter') || 'new')
+    const [updatedAtFilter, setUpdatedAtFilter] = useState(cookie.get('updatedAt_filter') || 'new')
+    const [scoreFilter, setScoreFilter] = useState(cookie.get('score_filter') || 'high')
     const [reviews, setReviews] = useState([])
     const navigate = useNavigate();
 
@@ -25,11 +25,24 @@ function Reviews({ id, type }) {
             <input type='checkbox'
                 defaultChecked={updatedAtFilter == 'new'}
                 onChange={() => {
-                    cookie.set('score_filter', updatedAtFilter == 'new' ? 'old' : 'new')
+                    cookie.set('updatedAt_filter', updatedAtFilter == 'new' ? 'old' : 'new')
                     setUpdatedAtFilter(updatedAtFilter == 'new' ? 'old' : 'new')
                 }}
             />
             newest to oldest
+        </>);
+    }
+
+    function ScoreFilterCheckBox() {
+        return (<>
+            <input type='checkbox'
+                defaultChecked={scoreFilter == 'high'}
+                onChange={() => {
+                    cookie.set('score_filter', scoreFilter == 'high' ? 'low' : 'high')
+                    setScoreFilter(scoreFilter == 'high' ? 'low' : 'high')
+                }}
+            />
+            highest to lowest
         </>);
     }
 
@@ -71,6 +84,8 @@ function Reviews({ id, type }) {
             {token ? createReviewButton : <h1>Sign in to post a review!</h1>}
             <br/>
             <UpdatedAtFilterCheckBox/>
+            <br/>
+            <ScoreFilterCheckBox/>
             <br/>
             {reviews.length ? reviews.map(review => displayReview(review)) : <h1>No Reviews</h1>}
         </div>
