@@ -29,7 +29,6 @@ function Reviews({ id, type }) {
                     setUpdatedAtFilter(updatedAtFilter == 'new' ? 'old' : 'new')
                 }}
             />
-            newest to oldest
         </>);
     }
 
@@ -42,7 +41,6 @@ function Reviews({ id, type }) {
                     setScoreFilter(scoreFilter == 'high' ? 'low' : 'high')
                 }}
             />
-            highest to lowest
         </>);
     }
 
@@ -83,9 +81,9 @@ function Reviews({ id, type }) {
         <div class='halfColumn'>
             {token ? createReviewButton : <h1>Sign in to post a review!</h1>}
             <br/>
-            <UpdatedAtFilterCheckBox/>
+            <UpdatedAtFilterCheckBox/> newest to oldest
             <br/>
-            <ScoreFilterCheckBox/>
+            <ScoreFilterCheckBox/> highest to lowest
             <br/>
             {reviews.length ? reviews.map(review => displayReview(review)) : <h1>No Reviews</h1>}
         </div>
