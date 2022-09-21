@@ -18,7 +18,7 @@ function Reviews({ id, type }) {
         axios.get(`/api/review/${type}/${id}?score=${scoreFilter}&updatedAt=${updatedAtFilter}`)
         .then(res => setReviews(res.data))
         .catch(err => toast.error(err.response.data))
-    }, [])
+    }, [scoreFilter, updatedAtFilter])
 
     function UpdatedAtFilterCheckBox() {
         return (<>
