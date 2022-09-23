@@ -46,7 +46,13 @@ const getTV = async (req, res) => {
     res.status(200).json(result)
 }
 
+const getTrendingTV = async (req, res) => {
+    const trendingTV = (await axios.get(`https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.TMDB_API_KEY}`)).data
+    res.status(200).json(trendingTV)
+}
+
 module.exports = {
+    getTrendingTV,
     searchTV,
     getTV,
 }
