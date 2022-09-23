@@ -47,7 +47,10 @@ const getTV = async (req, res) => {
 }
 
 const getTrendingTV = async (req, res) => {
-    const trendingTV = (await axios.get(`https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.TMDB_API_KEY}`)).data
+    const trendingMovies = (await axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`)).data
+    const trendingShows = (await axios.get(`https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`)).data
+    const trendingTV = trendingMovies.concat(trendingShows).sort(() => Math.random() - 0.5);
+    
     res.status(200).json(trendingTV)
 }
 
