@@ -49,7 +49,13 @@ const getTV = async (req, res) => {
 const getTrendingTV = async (req, res) => {
     const trendingMovies = (await axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`)).data.results
     const trendingShows = (await axios.get(`https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`)).data.results
-    const trendingTV = trendingMovies.concat(trendingShows).sort(() => Math.random() - 0.5);
+    
+    const trendingTV = trendingMovies.concat(trendingShows).sort(() => Math.random() - 0.5).map(
+        tv => { return {
+        title: tv.original_name || tv.original_title || tv.name,
+        id: tv.id,
+        media_type: tv.media_type
+    } })
     
     res.status(200).json(trendingTV)
 }
