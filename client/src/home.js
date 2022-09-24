@@ -6,6 +6,7 @@ function Home() {
     return (<>
         <NavBar/>
         <br/>
+        <h1>Trending:</h1>
         <Trending/>
         <br/>
         <Search/>
