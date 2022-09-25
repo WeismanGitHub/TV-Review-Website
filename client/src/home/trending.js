@@ -11,8 +11,6 @@ function Trending() {
         .then(res => setTrending(res.data))
         .catch(err => toast.error(err.response.data))
     }, []);
-    
-    console.log(trending[0])
 
     return (<>
         <div class='trendingTVList'>

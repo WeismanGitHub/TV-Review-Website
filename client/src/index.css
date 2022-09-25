@@ -154,3 +154,33 @@ hr.rounded {
     max-width: 400px;
     padding: 5px;
 }
+
+.trendingTV {
+    background-color: rgb(197, 215, 239);
+    border: 1px black solid;
+    margin: 20px 5px 20px 5px;
+    overflow-wrap: break-word;
+    display: inline-block;
+    text-align: center;
+    color: black;
+    height: 150px;
+    width: 300px;
+}
+
+.trendingTV:hover {
+    filter: brightness(95%);
+    cursor: pointer;
+}
+
+.trendingTVList {
+    border: 1px solid black;
+    overflow-wrap: break-word;
+    list-style-type: none;
+    white-space:nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    font-size: larger;
+    height: 200px;
+    margin: auto;
+    width: 90vw;
+}
