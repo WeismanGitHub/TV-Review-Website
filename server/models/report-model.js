@@ -12,6 +12,11 @@ const ReportSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide a user id.']
+    },
+    resolved: {
+        type: Boolean,
+        required: [true, 'Is this report resolved?'],
+        default: false
     }
 })
 
