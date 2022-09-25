@@ -1,4 +1,6 @@
+make vote show red/green when voted on
+add frontend for removing votes 
+clean up the code in general
 make moderation page
-report buttons/moderation system
-fix not downvoting. just clean up the voting code in general
-add images
+fix not downvoting
+report buttons
