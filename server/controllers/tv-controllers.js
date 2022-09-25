@@ -17,22 +17,20 @@ const searchTV = async (req, res) => {
 
 const getTV = async (req, res) => {
     const type = req.params.type == 'movie' ? 'movie' : 'tv'
-    let result = (await axios.get(`https://api.themoviedb.org/3/${type}/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
+    
+    const result = (await axios.get(`https://api.themoviedb.org/3/${type}/${req.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
 
-    if (type == 'movie') {
-        result = {
-            title: result.original_name || result.original_title || result.name,
-            genres: result.genres.map(genre => genre.name).join(', '),
-            release: result.release_date,
-            overview: result.overview,
-        }
-    } else {
-        result = {
-            title: result.original_name || result.original_title || result.name,
-            genres: result.genres.map(genre => genre.name).join(', '),
+    let tv = {
+        title: result.original_name || result.original_title || result.name,
+        genres: result.genres.map(genre => genre.name).join(', '),
+        release: type == 'movie' ? result.release_date : result.first_air_date,
+        overview: result.overview,
+    }
+
+    if (type == 'tv') {
+        tv = {
+            ...tv,
             episodeCount: result.number_of_episodes,
-            release: result.first_air_date,
-            overview: result.overview,
             seasons: result.seasons.map(season => {
                 return {
                     episodeCount: season.episode_count,
@@ -43,18 +41,18 @@ const getTV = async (req, res) => {
         }
     }
 
-    res.status(200).json(result)
+    res.status(200).json(tv)
 }
 
 const getTrendingTV = async (req, res) => {
     const trendingMovies = (await axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`)).data.results
     const trendingShows = (await axios.get(`https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`)).data.results
     
-    const trendingTV = trendingMovies.concat(trendingShows).sort(() => Math.random() - 0.5).map(
-        tv => { return {
+    const trendingTV = trendingMovies.concat(trendingShows).sort(() => Math.random() - 0.5)
+    .map(tv => { return {
         title: tv.original_name || tv.original_title || tv.name,
+        media_type: tv.media_type,
         id: tv.id,
-        media_type: tv.media_type
     } })
     
     res.status(200).json(trendingTV)
