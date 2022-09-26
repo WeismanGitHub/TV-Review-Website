@@ -1,5 +1,5 @@
-const UserModel = require('../models/user-model')
 const ReportModel = require('../models/report-model')
+const UserModel = require('../models/user-model')
 
 const deleteReview = async (req, res) => {
     await ReviewModel.deleteOne({ _id: req.body.reviewId })
@@ -18,8 +18,16 @@ const strikeUser = async (req, res) => {
 
 }
 
+const closeReport = async (req, res) => {
+    await ReportModel.updateOne(
+        { _id: req.body.reportId },
+        { resolved: true }
+    )
+}
+
 module.exports = {
     deleteReview,
+    closeReport,
     getReports,
-    strikeUser
+    strikeUser,
 }
