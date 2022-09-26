@@ -14,7 +14,7 @@ const createReview = async (req, res) => {
 }
 
 const deleteReview= async (req, res) => {
-    await ReviewModel.deleteOne({ _id: req.body.reviewId })
+    await ReviewModel.deleteOne({ _id: req.body.reviewId, userId: req.userId })
 
     res.status(200).end()
 }
@@ -37,7 +37,7 @@ const getReviews = async (req, res) => {
 
 const updateReview = async (req, res) => {
     await ReviewModel.updateOne(
-        { _id: req.body.reviewId },
+        { _id: req.body.reviewId, userId: req.userId },
         { body: req.body.body }
     ).catch(err => {
         if (err.name == 'ValidationError') {
