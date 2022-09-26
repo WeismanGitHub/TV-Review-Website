@@ -10,13 +10,14 @@ const modAuthMiddleware = async (req, res, next) => {
     
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET)
-        req.userId = payload._id
 
         const user = await UserModel.findById(req.userId).select('-_id level').lean()
 
         if (user.level == 'user') {
             throw new Error('You are not a mod.')
         }
+
+        req.user = { _id: payload._id, level: user.level }
 
         next()
     } catch (error) {
