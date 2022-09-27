@@ -29,6 +29,13 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please provide a tier.'],
         default: 'user',
         enum: ['user', 'moderator', 'administrator']
+    },
+    strikes: {
+        type: Number,
+        required: [true, 'Please provide the amount of strikes.'],
+        default: 0,
+        min: 0,
+        max: 3
     }
 }, { timestamps: { createdAt: true, updatedAt: false } })
 
