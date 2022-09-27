@@ -1,4 +1,4 @@
-const authenticationMiddleware = require('../middleware/authentication-middleware')
+const authenticationMiddleware = require('../middleware/auth-middleware')
 const { Router } = require('express')
 
 const {

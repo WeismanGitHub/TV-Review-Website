@@ -1,5 +1,4 @@
-const authenticationMiddleware = require('../middleware/authentication-middleware')
-const reviewsMiddleware = require('../middleware/reviews-middleware.js')
+const authenticationMiddleware = require('../middleware/auth-middleware')
 const { Router } = require('express')
 
 const {
@@ -23,6 +22,6 @@ router.route('/delete').post(authenticationMiddleware, deleteReview)
 router.route('/vote').post(authenticationMiddleware, vote)
 .delete(authenticationMiddleware, deleteVote)
 
-router.route('/:type/:id').get(reviewsMiddleware, getReviews)
+router.route('/:type/:id').get(getReviews)
 
 module.exports = router
