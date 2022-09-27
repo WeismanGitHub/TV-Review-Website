@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const { getNextKeyDef } = require('@testing-library/user-event/dist/keyboard/getNextKeyDef')
 require('dotenv').config()
 
 const UserSchema = new mongoose.Schema({
@@ -42,6 +43,14 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre('save', async function() {
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
+})
+
+UserSchema.pre('updateOne', async function(next) {
+    if (this.strikes >= 3) {
+        await this.delete()
+    }
+    
+    next()
 })
 
 UserSchema.methods.createJWT = function() {
