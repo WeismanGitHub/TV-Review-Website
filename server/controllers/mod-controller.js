@@ -15,7 +15,10 @@ const getReports = async (req, res) => {
 }
 
 const strikeUser = async (req, res) => {
-
+    await UserModel.updateOne(
+        { _id: req.body.reportId },
+        { $inc : { 'strikes' : 1 } }
+    )
 }
 
 const closeReport = async (req, res) => {
