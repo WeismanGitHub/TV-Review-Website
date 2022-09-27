@@ -4,7 +4,7 @@ const UserModel = require('../models/user-model')
 
 const updateUser = async (req, res) => {
     const { newName, newPassword, currentPassword} = req.body
-    const user = await UserModel.findById(req.userId)
+    const user = await UserModel.findById(req.user.id)
     
     const passwordIsCorrect = await user.checkPassword(currentPassword)
     
@@ -35,7 +35,7 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    await UserModel.deleteOne({ _id: req.userId })
+    await UserModel.deleteOne({ _id: req.user.id })
 
     res.status(200)
     .clearCookie('token')
@@ -53,7 +53,7 @@ const getUser = async (req, res) => {
 }
 
 const getSelf = async (req, res) => {
-   const user = await UserModel.findById(req.userId).select('-password').lean()
+   const user = await UserModel.findById(req.user.id).select('-password').lean()
 
    if (!user) throw new Error('User does not exist.')
 
