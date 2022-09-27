@@ -23,6 +23,8 @@ const closeReport = async (req, res) => {
         { _id: req.body.reportId },
         { resolved: true }
     )
+
+    res.status(200).end()
 }
 
 const changeLevel = async (req, res) => {
@@ -32,6 +34,8 @@ const changeLevel = async (req, res) => {
         user.level = 'administrator'
         await user.save()
     }
+
+    res.status(200).end()
 }
 
 module.exports = {
