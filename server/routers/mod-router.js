@@ -2,11 +2,11 @@ const { Router } = require('express')
 
 const {
     deleteReview,
+    changeLevel,
     closeReport,
     getReports,
     strikeUser,
-    changeLevel,
-} = require('../controllers/authentication-controllers')
+} = require('../controllers/mod-controller')
 
 const router = Router()
 
