@@ -9,7 +9,7 @@ const deleteReview = async (req, res) => {
 
 const getReports = async (req, res) => {
     const reports = await ReportModel.find({ resolved: req.query.status})
-    .skip(req.query.page * 10).limit(10)
+    .skip(req.query.page * 10).limit(10).select('-__v').lean()
 
     res.status(200).json(reports)
 }
@@ -25,8 +25,18 @@ const closeReport = async (req, res) => {
     )
 }
 
+const changeLevel = async (req, res) => {
+    const user = await UserModel.findById(req.body.userId).select('level').lean()
+
+    if (req.user.level == 'administrator' && user.level == 'user') {
+        user.level = 'administrator'
+        await user.save()
+    }
+}
+
 module.exports = {
     deleteReview,
+    changeLevel,
     closeReport,
     getReports,
     strikeUser,
