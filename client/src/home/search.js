@@ -22,9 +22,9 @@ function Search() {
         return () => clearTimeout(delayedSearch)
     }, [search])
 
-    const getNextPage = (nextPage) => {
-        setPage(nextPage)
-        axios.get(`api/tv/search/${search}?page=${nextPage}`)
+    const getPage = (page) => {
+        setPage(page)
+        axios.get(`api/tv/search/${search}?page=${page}`)
         .then(res => setResults(res.data))
         .catch(err => toast.error(err.response.data))
     }
@@ -38,8 +38,8 @@ function Search() {
                 setSearch(event.target.value)
             }}
         />
-        {page > 1 && <div class='customButton' onClick={() => getNextPage(page - 1)}>Back</div>}
-        {Boolean(results.length) && <div class='customButton' onClick={() => getNextPage(page + 1)}>Next</div>}
+        {page > 1 && <div class='customButton' onClick={() => getPage(page - 1)}>Back</div>}
+        {Boolean(results.length) && <div class='customButton' onClick={() => getPage(page + 1)}>Next</div>}
         <br/>
         <ul class='searchResults'>
             {
