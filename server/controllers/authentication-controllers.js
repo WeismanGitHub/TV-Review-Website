@@ -16,6 +16,7 @@ const register = async (req, res) => {
 
     res.status(201)
     .cookie('token', token)
+    .cookie('level', user.level)
     .redirect('/')
 }
 
@@ -37,12 +38,14 @@ const login = async (req, res) => {
 
     res.status(200)
     .cookie('token', token)
+    .cookie('level', user.level)
     .redirect('/')
 }
 
 const logout = async (req, res) => {
     res.status(200)
     .clearCookie('token')
+    .cookie('level')
     .redirect('/authentication')
 }
 
