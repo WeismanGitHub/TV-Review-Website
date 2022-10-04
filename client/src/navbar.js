@@ -11,7 +11,7 @@ function NavBar() {
             <div class='navbar'>
                 <a href='/' class="customButton">Home</a>
                 {token ? <a href='/account' class="customButton">Account</a> : <a href='/authentication' class='customButton'>Login/Register</a>}
-                {(level == 'administrator' || 'moderator') && <a class='customButton' href='/mod'>Mod</a>}
+                {(level == 'administrator' || level == 'moderator') && <a class='customButton' href='/mod'>Mod</a>}
                 {token && <Logout class='customButton'/>}
             </div>
             <br/>
