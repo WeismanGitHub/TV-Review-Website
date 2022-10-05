@@ -1,5 +1,6 @@
 const ValidationError = require('../errors/validation-error')
 const ReviewModel = require('../models/review-model')
+const ReportModel = require('../models/report-model')
 const VoteModel = require('../models/vote-model')
 
 const createReview = async (req, res) => {
@@ -87,11 +88,22 @@ const deleteVote = async (req, res) => {
     res.status(200).end()
 }
 
+const reportReview = async (req, res) => {
+    await ReportModel.create({
+        reason: req.body.reason,
+        reviewId: req.body.reviewId,
+        userId: req.user.id
+    })
+
+    res.status(200).end()
+}
+
 module.exports = {
+    reportReview,
     updateReview,
     createReview,
     deleteReview,
     getReviews,
     deleteVote,
-    vote
+    vote,
 }
