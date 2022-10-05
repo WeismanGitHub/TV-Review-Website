@@ -4,6 +4,8 @@ const ReportSchema = new mongoose.Schema({
     reason: {
         type: String,
         required: [true, 'Please provide a reason.'],
+        minlength: 1,
+        maxlength: 1000,
     },
     reviewId: {
         type: mongoose.Types.ObjectId,
