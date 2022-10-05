@@ -11,7 +11,7 @@ const {
 const router = Router()
 
 router.route('/delete').post(deleteReview)
-router.route('/reports').post(getReports)
+router.route('/reports').get(getReports)
 router.route('/close').post(closeReport)
 router.route('/strike').post(strikeUser)
 router.route('/level').post(changeLevel)
