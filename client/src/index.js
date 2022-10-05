@@ -3,8 +3,9 @@ import { ToastContainer } from 'react-toastify';
 import { createRoot } from 'react-dom/client'
 import './index.css';
 
-import Authentication from './authentication'
 import CreateReview from './review/create-review'
+import ReportReview from './review/report-review'
+import Authentication from './authentication'
 import EditReview from './review/edit-review'
 import NotFound from './not-found'
 import TVPage from './tv-page'
@@ -22,6 +23,7 @@ root.render(
                 <Route exact path='/' element={<Home/>}/>
                 <Route exact path='/account' element={<Self/>}/>
                 <Route exact path='/authentication' element={Authentication}/>
+                <Route exact path='/review/report' element={<ReportReview/>}/>
                 <Route exact path='/review/edit' element={<EditReview/>}/>
                 <Route exact path='/review/create' element={<CreateReview/>}/>
                 <Route exact path='/:type/:id' element={<TVPage/>}/>
