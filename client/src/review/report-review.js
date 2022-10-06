@@ -9,7 +9,7 @@ function ReportReview() {
 
     function onSubmit(event) {
         event.preventDefault();
-        axios.post('/api/report', {
+        axios.post('/api/review/report', {
             reason: event.target[0].value,
             ...location.state
         }).then(res =>
