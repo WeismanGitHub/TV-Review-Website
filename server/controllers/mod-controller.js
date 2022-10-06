@@ -9,7 +9,7 @@ const deleteReview = async (req, res) => {
 
 const getReports = async (req, res) => {
     const reports = await ReportModel.find({ resolved: req.query.status || false })
-    .skip((req.query.page || 1) * 10).limit(10).select('-__v').lean()
+    .skip((req.query.page || 0) * 10).limit(10).select('-__v').lean()
     console.log(reports)
     res.status(200).json(reports)
 }
