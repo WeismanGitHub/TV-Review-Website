@@ -11,7 +11,7 @@ function Search() {
     useEffect(() => {
         const delayedSearch = setTimeout(function() {
             if (search !== '') {
-                axios.get(`api/tv/search/${search}`)
+                axios.get(`api/tv/search?phrase=${search}`)
                 .then(res => setResults(res.data))
                 .catch(err => toast.error(err.response.data))
             } else {
@@ -39,7 +39,7 @@ function Search() {
             }}
         />
         {page > 1 && <div class='customButton' onClick={() => getPage(page - 1)}>Back</div>}
-        {Boolean(results.length) && <div class='customButton' onClick={() => getPage(page + 1)}>Next</div>}
+        {results.length == 20 && <div class='customButton' onClick={() => getPage(page + 1)}>Next</div>}
         <br/>
         <ul class='searchResults'>
             {
