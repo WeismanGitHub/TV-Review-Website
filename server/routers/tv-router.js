@@ -3,7 +3,7 @@ const { Router } = require('express')
 
 const router = Router()
 
-router.route('/search/:phrase').get(searchTV)
+router.route('/search').get(searchTV)
 router.route('/trending').get(getTrendingTV)
 router.route('/:type/:id').get(getTV)
 
