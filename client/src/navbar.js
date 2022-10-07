@@ -9,10 +9,10 @@ function NavBar() {
     return (
         <div>
             <div class='navbar'>
-                <a href='/' class="customButton">Home</a>
-                {token ? <a href='/account' class="customButton">Account</a> : <a href='/authentication' class='customButton'>Login/Register</a>}
-                {(level == 'administrator' || level == 'moderator') && <a class='customButton' href='/mod'>Mod</a>}
-                {token && <Logout class='customButton'/>}
+                <a href='/' class="navbarButton">Home</a>
+                {token ? <a href='/account' class="navbarButton">Account</a> : <a href='/authentication' class='navbarButton'>Login/Register</a>}
+                {(level == 'administrator' || level == 'moderator') && <a class='navbarButton' href='/mod'>Mod</a>}
+                {token && <Logout class='navbarButton'/>}
             </div>
             <br/>
             <br/>
