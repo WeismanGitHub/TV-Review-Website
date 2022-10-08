@@ -1,4 +1,5 @@
 const ReportModel = require('../models/report-model')
+const ReviewModel = require('../models/review-model')
 const UserModel = require('../models/user-model')
 
 const deleteReview = async (req, res) => {
@@ -41,10 +42,25 @@ const changeLevel = async (req, res) => {
     res.status(200).end()
 }
 
+const getReport = async (req, res) => {
+    const report = await ReportModel.findById(req.params.id).lean()
+    const review = await ReviewModel.findById(report.reviewId).select('-_id body').lean()
+    const author = await UserModel.findById(review.userId).select('-_id -score -password').lean()
+
+    const reportData = {
+        ...report,
+        review: review.body,
+        author: author
+    }
+
+    res.status(200).json(reportData)
+}
+
 module.exports = {
     deleteReview,
     changeLevel,
     closeReport,
     getReports,
     strikeUser,
+    getReport,
 }
