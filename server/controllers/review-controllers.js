@@ -21,13 +21,13 @@ const deleteReview= async (req, res) => {
 }
 
 const getReviews = async (req, res) => {
-    const query = {
+    const sort = {
         score: req.query.score == 'high' ? -1 : 1,
         updatedAt: req.query.updatedAt == 'new' ? -1 : 1,
     }
 
     const reviews = (await ReviewModel.find({ type: req.params.type, tvId: req.params.id })
-    .sort(query).select('-tvId -type').lean())
+    .sort(sort).select('-tvId -type').lean())
     .map(review => {
         review.editable = req.user.id == review.userId
         return review
