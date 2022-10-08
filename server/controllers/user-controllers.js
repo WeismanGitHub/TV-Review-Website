@@ -61,7 +61,24 @@ const getSelf = async (req, res) => {
     .send(user)
 }
 
+const getUserReviews = async (req, res) => {
+    const sort = {
+        score: req.query.score == 'high' ? -1 : 1,
+        updatedAt: req.query.updatedAt == 'new' ? -1 : 1,
+    }
+
+    const reviews = (await ReviewModel.find({ userId: req.query.userId })
+    .sort(sort).lean())
+    .map(review => {
+        review.editable = req.user.id == review.userId
+        return review
+    })
+
+    res.status(200).json(reviews)
+}
+
 module.exports = {
+    getUserReviews,
     updateUser,
     deleteUser,
     getUser,
