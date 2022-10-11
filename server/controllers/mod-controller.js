@@ -43,14 +43,13 @@ const changeLevel = async (req, res) => {
 }
 
 const getReport = async (req, res) => {
-    const report = await ReportModel.findById(req.params.id).lean()
+    const report = await ReportModel.findById(req.params.id).select('_id -__v').lean()
     const review = await ReviewModel.findById(report.reviewId).select('-_id body').lean()
-    const author = await UserModel.findById(review.userId).select('-_id -score -password').lean()
 
     const reportData = {
         ...report,
         review: review.body,
-        author: author
+        authorId: review.userId
     }
 
     res.status(200).json(reportData)
