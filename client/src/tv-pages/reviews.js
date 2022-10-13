@@ -67,10 +67,10 @@ function Reviews({ id, type }) {
                 <div onClick={() => vote(review._id, 'upvote')} class='vote'>☑</div>
                 {` ${review.score} `}
                 <div onClick={() => vote(review._id, 'downvote')} class='vote'>☒</div>
-                <div onClick={() => navigate('/review/report', { state: { reviewId: review._id } })} class='editButton'>Report</div>
+                <div onClick={() => navigate('/review/report', { state: { reviewId: review._id } })} class='customButton'>Report</div>
                 {review.editable && <>
-                    <div onClick={() => navigate('/review/edit', { state: { reviewId: review._id, body: review.body } })} class='editButton'>Edit</div>
-                    <div class='editButton' onClick={() => deleteReview(review._id)}>Delete</div>
+                    <div onClick={() => navigate('/review/edit', { state: { reviewId: review._id, body: review.body } })} class='customButton'>Edit</div>
+                    <div class='customButton' onClick={() => deleteReview(review._id)}>Delete</div>
                 </>}
             </div>
         </>)
