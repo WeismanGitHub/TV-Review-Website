@@ -22,10 +22,10 @@ const strikeUser = async (req, res) => {
     )
 }
 
-const closeReport = async (req, res) => {
+const changeReportStatus = async (req, res) => {
     await ReportModel.updateOne(
         { _id: req.body.reportId },
-        { resolved: true }
+        { resolved: req.body.status }
     )
 
     res.status(200).end()
@@ -56,9 +56,9 @@ const getReport = async (req, res) => {
 }
 
 module.exports = {
+    changeReportStatus,
     deleteReview,
     changeLevel,
-    closeReport,
     getReports,
     strikeUser,
     getReport,
