@@ -11,13 +11,13 @@ const ReportSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide the review id.'],
     },
-    userId: {
+    reporterId: {
         type: mongoose.Types.ObjectId,
-        required: [true, 'Please provide a user id.']
+        required: [true, 'Please provide a reporter id.']
     },
-    resolved: {
+    status: {
         type: Boolean,
-        required: [true, 'Is this report resolved?'],
+        required: [true, 'Please provide a status.'],
         default: false
     }
 })
