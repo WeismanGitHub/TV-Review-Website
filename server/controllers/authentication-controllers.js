@@ -1,5 +1,7 @@
 const DuplicateKeyError = require('../errors/duplicate-key-error')
 const UnauthorizedError = require('../errors/unauthorized-error')
+const ValidationError = require('../errors/validation-error')
+const DefaultError = require('../errors/default-error')
 const UserModel = require('../models/user-model')
 
 const register = async (req, res) => {
@@ -7,9 +9,11 @@ const register = async (req, res) => {
     .catch(err => {
         if (err.name == 'MongoServerError') {
             throw new DuplicateKeyError('Pick a unique username.')
+        } else if (err.name == 'ValidationError') {
+            throw new ValidationError(err.message)
         }
 
-        throw new Error(err.message)
+        throw new DefaultError()
     })
 
     const token = user.createJWT()
