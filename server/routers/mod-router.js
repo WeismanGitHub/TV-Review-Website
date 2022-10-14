@@ -7,7 +7,7 @@ const {
     getReports,
     strikeUser,
     getReport
-} = require('../controllers/mod-controller')
+} = require('../controllers/mod-controllers')
 
 const router = Router()
 
