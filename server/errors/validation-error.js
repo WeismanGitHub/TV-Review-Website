@@ -1,6 +1,6 @@
 class ValidationError extends Error {
     constructor(message) {
-        super(message || 'Validation Error')
+        super(message || 'Invalid Input')
         this.statusCode = 400
     }
 }
