@@ -18,7 +18,7 @@ const getReports = async (req, res) => {
 const strikeUser = async (req, res) => {
     await UserModel.updateOne(
         { _id: req.body.reportId },
-        { $inc : { 'strikes' : 1 } }
+        { $inc : { 'strikes': 1 } }
     )
 }
 
@@ -32,11 +32,13 @@ const changeReportStatus = async (req, res) => {
 }
 
 const changeLevel = async (req, res) => {
-    const user = await UserModel.findById(req.body.userId).select('level').lean()
-
-    if (req.user.level == 'administrator' && user.level == 'user') {
-        user.level = 'administrator'
-        await user.save()
+    const level = req.body.level
+    
+    if (req.user.level == 2 && level !== 2) {
+        await UserModel.updateOne(
+            { _id: req.body.userId },
+            { level: level }
+        )
     }
 
     res.status(200).end()
