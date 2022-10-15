@@ -27,9 +27,10 @@ const UserSchema = new mongoose.Schema({
     },
     level: {
         type: String,
-        required: [true, 'Please provide a tier.'],
-        default: 'user',
-        enum: ['user', 'moderator', 'administrator']
+        required: [true, 'Please provide a level.'],
+        default: 0,
+        min: 0,
+        max: 2
     },
     strikes: {
         type: Number,
