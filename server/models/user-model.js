@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
         default: 0
     },
     level: {
-        type: String,
+        type: Number,
         required: [true, 'Please provide a level.'],
         default: 0,
         min: 0,
