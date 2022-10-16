@@ -44,14 +44,20 @@ const changeLevel = async (req, res) => {
     res.status(200).end()
 }
 
-const getReport = async (req, res) => {
-    const report = await ReportModel.findById(req.params.id).select('_id -__v').lean()
+const getReportData = async (req, res) => {
+    const report = await ReportModel.findById(req.params.id).select('-_id -__v').lean()
     const review = await ReviewModel.findById(report.reviewId).select('-_id body userId').lean()
+    const reviewer = await UserModel.findById(review.userId).select('-_id name level strikes')
 
     const reportData = {
-        ...report,
-        review: review.body,
-        reviewAuthorId: review.userId
+        report: report,
+        review: {
+            body: review.body,
+            user: {
+                _id: review.userId,
+                ...reviewer
+            }
+        },
     }
 
     res.status(200).json(reportData)
@@ -59,9 +65,9 @@ const getReport = async (req, res) => {
 
 module.exports = {
     changeReportStatus,
+    getReportData,
     deleteReview,
     changeLevel,
     getReports,
     strikeUser,
-    getReport,
 }
