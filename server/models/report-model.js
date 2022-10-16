@@ -11,7 +11,7 @@ const ReportSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide the review id.'],
     },
-    reporterId: {
+    userId: {
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide a reporter id.']
     },
