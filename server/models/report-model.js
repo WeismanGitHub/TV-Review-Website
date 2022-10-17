@@ -18,7 +18,8 @@ const ReportSchema = new mongoose.Schema({
     status: {
         type: Boolean,
         required: [true, 'Please provide a status.'],
-        default: false
+        default: false,
+        index: true
     }
 })
 

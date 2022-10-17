@@ -14,11 +14,13 @@ const ReviewSchema = new mongoose.Schema({
     },
     tvId: {
         type: Number,
-        required: [true, 'Please provide the tv id.']
+        required: [true, 'Please provide the tv id.'],
+        index: true
     },
     userId: {
         type: mongoose.Types.ObjectId,
-        required: [true, 'Please provide a creator id.']
+        required: [true, 'Please provide a creator id.'],
+        index: true
     },
     type: {
         type: String,

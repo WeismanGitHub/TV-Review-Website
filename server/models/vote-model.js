@@ -10,10 +10,12 @@ const VoteSchema = new mongoose.Schema({
     reviewId: {
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide the review id.'],
+        index: true
     },
     userId: {
         type: mongoose.Types.ObjectId,
-        required: [true, 'Please provide a user id.']
+        required: [true, 'Please provide a user id.'],
+        index: true
     }
 })
 
