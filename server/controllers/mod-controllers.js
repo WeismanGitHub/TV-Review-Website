@@ -31,19 +31,6 @@ const changeReportStatus = async (req, res) => {
     res.status(200).end()
 }
 
-const changeLevel = async (req, res) => {
-    const level = req.body.level
-    
-    if (req.user.level == 2 && level !== 2) {
-        await UserModel.updateOne(
-            { _id: req.body.userId },
-            { level: level }
-        )
-    }
-
-    res.status(200).end()
-}
-
 const getReportData = async (req, res) => {
     const report = await ReportModel.findById(req.params.id).select('-_id -__v').lean()
     const review = await ReviewModel.findById(report.reviewId).select('-_id body userId').lean()
@@ -68,6 +55,5 @@ module.exports = {
     changeUserStrikes,
     getReportData,
     deleteReview,
-    changeLevel,
     getReports,
 }
