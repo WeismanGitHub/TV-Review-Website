@@ -30,7 +30,11 @@ function ReportPage() {
         .catch(err => toast.error('Problem closing report.'))
     }
 
-    console.log(reportData)
+    function deleteReview(reviewId) {
+        axios.post('/api/mod/delete', { reviewId: reviewId })
+        .catch(err => toast.error('Problem deleting report.'))
+    }
+
     const report = (<>
         <h2>
             <div class='halfColumn'>
@@ -46,6 +50,8 @@ function ReportPage() {
                 Resolved: {String(reportData.resolved)}
                 <br/>
                 <h3>{reportData.resolved || <div class='customButton' onClick={() => closeReport(id)}>Close</div>}</h3>
+                <h3>{reportData.review && <div class='customButton' onClick={() => deleteReview(reportData.reviewId)}>Delete</div>}</h3>
+                <h3>{reportData.resolved || <div class='customButton' onClick={() => strikeUser(id)}>Strike</div>}</h3>
             </div>
         </h2>
     </>)
