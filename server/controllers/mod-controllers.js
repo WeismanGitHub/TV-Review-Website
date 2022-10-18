@@ -15,10 +15,10 @@ const getReports = async (req, res) => {
     res.status(200).json(reports)
 }
 
-const strikeUser = async (req, res) => {
+const changeUserStrikes = async (req, res) => {
     await UserModel.updateOne(
         { _id: req.body.reportId },
-        { $inc : { 'strikes': 1 } }
+        { $inc : { 'strikes': req.body.strike } }
     )
 }
 
@@ -65,9 +65,9 @@ const getReportData = async (req, res) => {
 
 module.exports = {
     changeReportStatus,
+    changeUserStrikes,
     getReportData,
     deleteReview,
     changeLevel,
     getReports,
-    strikeUser,
 }
