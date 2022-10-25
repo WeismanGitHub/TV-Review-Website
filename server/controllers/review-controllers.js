@@ -54,31 +54,16 @@ const updateReview = async (req, res) => {
 }
 
 const vote = async (req, res) => {
-    const vote = await VoteModel.findOne({ userId: req.user.id, reviewId: req.body.reviewId })
-    .select('-_id type').lean()
-
-    if (!vote) {
-        await VoteModel.create({
-            userId: req.user.id,
-            reviewId: req.body.reviewId,
-            type: req.body.type
-        })
+    const { type, reviewId } = req.body
+    
+    if (type == 'delete') {
+        await VoteModel.deleteOne({ userId: req.user.id, reviewId: reviewId })
     } else {
         await VoteModel.updateOne(
-            { userId: req.user.id, reviewId: req.body.reviewId },
-            {
-                userId: req.user.id,
-                reviewId: req.body.reviewId,
-                type: req.body.type
-            }
+            { userId: req.user.id, reviewId: reviewId },
+            { userId: req.user.id, reviewId: reviewId, type: type },
+            { upsert: true }
         )
-
-        if (vote.type !== req.body.type) {
-            await ReviewModel.updateOne(
-                { _id: req.body.reviewId },
-                 { $inc : { 'score' : req.body.type === 'upvote' ?  1 : -1 } }
-             )
-        }
     }
 
     res.status(200).end()
