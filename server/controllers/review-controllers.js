@@ -4,6 +4,10 @@ const VoteModel = require('../models/vote-model')
 const CustomErrors = require('../errors')
 
 const createReview = async (req, res) => {
+    if (1 <= req.body.body.length <= 1000) {
+        throw new CustomErrors.BadRequestError('Body must be between 1 and 1000 characters.')
+    }
+    
     await ReviewModel.create({
         body: req.body.body,
         userId: req.user.id,
