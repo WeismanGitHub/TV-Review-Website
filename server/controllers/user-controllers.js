@@ -1,6 +1,5 @@
-const DuplicateKeyError = require('../errors/duplicate-key-error')
-const UnauthorizedError = require('../errors/unauthorized-error')
 const UserModel = require('../models/user-model')
+const CustomErrors = require('../errors')
 
 const updateUser = async (req, res) => {
     const { newName, newPassword, currentPassword} = req.body
