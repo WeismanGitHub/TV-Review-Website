@@ -69,12 +69,6 @@ const vote = async (req, res) => {
     res.status(200).end()
 }
 
-const deleteVote = async (req, res) => {
-    await VoteModel.deleteOne({ userId: req.user.id, reviewId: req.body.reviewId })
-
-    res.status(200).end()
-}
-
 const reportReview = async (req, res) => {
     if (1 <= req.body.reason.length <= 1000) {
         throw new CustomErrors.BadRequestError('Reason must be between 1 and 1000 characters.')
