@@ -5,21 +5,20 @@ const VoteSchema = new mongoose.Schema({
     type: {
         type: String,
         required: [true, 'Please provide the review type.'],
-        enum: ['downvote', 'upvote']
+        enum: ['downvote', 'upvote'],
     },
     reviewId: {
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide the review id.'],
-        index: true
     },
     userId: {
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide a user id.'],
-        index: true
     }
 })
 
-VoteSchema.pre('save', async function() {
+// figure out a way to make this accurately update score (upserting complicates things)
+VoteSchema.pre('updateOne', async function() {
     await ReviewModel.updateOne(
        { _id: this.reviewId },
         { $inc : {'score' : this.type === 'upvote' ?  1 : -1 } }
