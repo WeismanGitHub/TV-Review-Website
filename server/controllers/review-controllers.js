@@ -7,7 +7,7 @@ const createReview = async (req, res) => {
     if (1 <= req.body.body.length <= 1000) {
         throw new CustomErrors.BadRequestError('Body must be between 1 and 1000 characters.')
     }
-    
+
     await ReviewModel.create({
         body: req.body.body,
         userId: req.user.id,
@@ -91,6 +91,10 @@ const deleteVote = async (req, res) => {
 }
 
 const reportReview = async (req, res) => {
+    if (1 <= req.body.reason.length <= 1000) {
+        throw new CustomErrors.BadRequestError('Reason must be between 1 and 1000 characters.')
+    }
+
     await ReportModel.create({
         reason: req.body.reason,
         reviewId: req.body.reviewId,
