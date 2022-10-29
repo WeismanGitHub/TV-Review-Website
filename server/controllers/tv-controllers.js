@@ -1,10 +1,12 @@
+const NodeCache = require( "node-cache");
 const axios = require('axios');
 require("dotenv").config()
 
+const trendingTVCache = new NodeCache({ stdTTL: 86400, checkperiod: 3600 });
+
 const searchTV = async (req, res) => {
-    let results = (await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${req.query.page || 1}&include_adult=true&query=${req.query.phrase}`)).data.results
-    
-    results = results.filter(result => result.media_type == 'tv' || result.media_type == 'movie')
+    const results = (await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${req.query.page || 1}&include_adult=true&query=${req.query.phrase}`)).data.results
+    .filter(result => result.media_type == 'tv' || result.media_type == 'movie')
     .map(result => {
         return {
             title: result.original_name || result.original_title || result.name,
@@ -46,15 +48,23 @@ const getTV = async (req, res) => {
 }
 
 const getTrendingTV = async (req, res) => {
-    const trendingMovies = (await axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`)).data.results
-    const trendingShows = (await axios.get(`https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`)).data.results
-    
-    const trendingTV = trendingMovies.concat(trendingShows).sort(() => Math.random() - 0.5)
-    .map(tv => { return {
-        title: tv.original_name || tv.original_title || tv.name,
-        media_type: tv.media_type,
-        id: tv.id,
-    } })
+    let trendingTV = trendingTVCache.get('trendingTV')
+
+    if (!trendingTV) {
+        const trendingMovies = (await axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`)).data.results
+        const trendingShows = (await axios.get(`https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`)).data.results
+        
+        trendingTV = trendingMovies.concat(trendingShows).sort(() => Math.random() - 0.5)
+        .map(tv => {
+            return {
+                title: tv.original_name || tv.original_title || tv.name,
+                mediaType: tv.media_type,
+                id: tv.id,
+            }
+        })
+
+        trendingTVCache.set('trendingTV', trendingTV)
+    }
     
     res.status(200).json(trendingTV)
 }
