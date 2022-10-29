@@ -51,7 +51,7 @@ function ReportPage() {
                 <br/>
                 <h3>{reportData.resolved || <div class='customButton' onClick={() => closeReport(id)}>Close</div>}</h3>
                 <h3>{reportData.review && <div class='customButton' onClick={() => deleteReview(reportData.reviewId)}>Delete</div>}</h3>
-                <h3>{reportData.resolved || <div class='customButton' onClick={() => strikeUser(id)}>Strike</div>}</h3>
+                {/* <h3>{reportData.resolved || <div class='customButton' onClick={() => strikeUser(id)}>Strike</div>}</h3> */}
             </div>
         </h2>
     </>)
