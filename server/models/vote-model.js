@@ -17,19 +17,4 @@ const VoteSchema = new mongoose.Schema({
     }
 })
 
-// figure out a way to make this accurately update score (upserting complicates things)
-VoteSchema.pre('updateOne', async function() {
-    await ReviewModel.updateOne(
-       { _id: this.reviewId },
-        { $inc : {'score' : this.type === 'upvote' ?  1 : -1 } }
-    )
-})
-
-VoteSchema.pre('deleteOne', async function() {
-    await ReviewModel.updateOne(
-        { _id: this.reviewId },
-        { $inc: { 'score': this.type == 'upvote' ?  -1 : 1 } }
-    )
-})
-
 module.exports = mongoose.model('votes', VoteSchema)
