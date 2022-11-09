@@ -9,24 +9,24 @@ const cookie = new Cookie();
 
 function Reviews({ id, type }) {
     const token = cookie.get('token')
-    const [updatedAtFilter, setUpdatedAtFilter] = useState(cookie.get('updatedAt_filter') || 'new')
-    const [scoreFilter, setScoreFilter] = useState(cookie.get('score_filter') || 'high')
+    const [ageFilter, setageFilter] = useState(cookie.get('age_filter') || 'newest')
+    const [scoreFilter, setScoreFilter] = useState(cookie.get('score_filter') || 'highest')
     const [reviews, setReviews] = useState([])
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`/api/review/${type}/${id}?score=${scoreFilter}&updatedAt=${updatedAtFilter}`)
+        axios.get(`/api/review/${type}/${id}?score=${scoreFilter}&age=${ageFilter}`)
         .then(res => setReviews(res.data))
         .catch(err => toast.error(err.response.data))
-    }, [scoreFilter, updatedAtFilter])
+    }, [scoreFilter, ageFilter])
 
-    function UpdatedAtFilterCheckBox() {
+    function ageFilterCheckBox() {
         return (<>
             <input type='checkbox'
-                defaultChecked={updatedAtFilter == 'new'}
+                defaultChecked={ageFilter == 'newest'}
                 onChange={() => {
-                    cookie.set('updatedAt_filter', updatedAtFilter == 'new' ? 'old' : 'new')
-                    setUpdatedAtFilter(updatedAtFilter == 'new' ? 'old' : 'new')
+                    cookie.set('age_filter', ageFilter == 'newest' ? 'oldest' : 'newest')
+                    setageFilter(ageFilter == 'newest' ? 'oldest' : 'newest')
                 }}
             />
         </>);
@@ -35,10 +35,10 @@ function Reviews({ id, type }) {
     function ScoreFilterCheckBox() {
         return (<>
             <input type='checkbox'
-                defaultChecked={scoreFilter == 'high'}
+                defaultChecked={scoreFilter == 'highest'}
                 onChange={() => {
-                    cookie.set('score_filter', scoreFilter == 'high' ? 'low' : 'high')
-                    setScoreFilter(scoreFilter == 'high' ? 'low' : 'high')
+                    cookie.set('score_filter', scoreFilter == 'highest' ? 'lowest' : 'highest')
+                    setScoreFilter(scoreFilter == 'highest' ? 'lowest' : 'highest')
                 }}
             />
         </>);
@@ -54,7 +54,7 @@ function Reviews({ id, type }) {
 
     function vote(reviewId, type) {
         axios.post('/api/review/vote', { type: type, reviewId: reviewId })
-        .then(res => console.log('[placeholder] change color of button'))
+        .then(res => console.log('[placeholdester] change color of button'))
         .catch(err => toast.error(err.response.data))
     }
 
@@ -82,9 +82,9 @@ function Reviews({ id, type }) {
         <div class='halfColumn'>
             {token ? createReviewButton : <h1>Sign in to post a review!</h1>}
             <br/>
-            <UpdatedAtFilterCheckBox/> newest to oldest
+            <ageFilterCheckBox/> newestest to oldestest
             <br/>
-            <ScoreFilterCheckBox/> highest to lowest
+            <ScoreFilterCheckBox/> highestest to lowestest
             <br/>
             {reviews.length ? reviews.map(review => displayReview(review)) : <h1>No Reviews</h1>}
         </div>

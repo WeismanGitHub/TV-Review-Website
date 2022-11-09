@@ -26,8 +26,8 @@ const deleteReview= async (req, res) => {
 
 const getReviews = async (req, res) => {
     const sort = {
-        score: req.query.score == 'high' ? -1 : 1,
-        updatedAt: req.query.updatedAt == 'new' ? -1 : 1,
+        score: req.query.score == 'highest' ? -1 : 1,
+        updatedAt: req.query.age == 'newest' ? -1 : 1,
     }
 
     const reviews = (await ReviewModel.find({ type: req.params.type, tvId: req.params.id })
