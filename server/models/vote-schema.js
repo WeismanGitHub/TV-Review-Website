@@ -1,15 +1,10 @@
-const ReviewModel = require('./review-model')
 const mongoose = require('mongoose')
 
-const VoteSchema = new mongoose.Schema({
+const Vote = new mongoose.Schema({
     type: {
         type: String,
         required: [true, 'Please provide the review type.'],
         enum: ['downvote', 'upvote'],
-    },
-    reviewId: {
-        type: mongoose.Types.ObjectId,
-        required: [true, 'Please provide the review id.'],
     },
     userId: {
         type: mongoose.Types.ObjectId,
@@ -17,4 +12,4 @@ const VoteSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('votes', VoteSchema)
+module.exports = Vote

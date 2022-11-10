@@ -1,3 +1,4 @@
+const VoteSchema = require('./vote-schema')
 const mongoose = require('mongoose')
 
 const ReviewSchema = new mongoose.Schema({
@@ -26,6 +27,14 @@ const ReviewSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a tv type. [Movie, Show]'],
         enum: ['show', 'movie']
+    },
+    votes: [{
+        type: VoteSchema,
+        max: 1000
+    }],
+    extraVotes: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: { createdAt: false, updatedAt: true } })
 
