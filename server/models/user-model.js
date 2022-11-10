@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const { getNextKeyDef } = require('@testing-library/user-event/dist/keyboard/getNextKeyDef')
 require('dotenv').config()
 
 const UserSchema = new mongoose.Schema({
