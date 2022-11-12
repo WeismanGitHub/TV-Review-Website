@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Vote = new mongoose.Schema({
+const VoteSchema = new mongoose.Schema({
     type: {
         type: String,
         required: [true, 'Please provide the review type.'],
@@ -12,4 +12,4 @@ const Vote = new mongoose.Schema({
     }
 })
 
-module.exports = Vote
+module.exports = VoteSchema
