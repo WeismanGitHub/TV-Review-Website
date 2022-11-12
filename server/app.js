@@ -18,7 +18,7 @@ const errorHandler = require('./middleware/error-handler')
 const reviewRouter = require('./routers/review-router')
 const userRouter = require('./routers/user-router')
 const modRouter = require('./routers/mod-router')
-const TVRouter = require('./routers/tv-router')
+const mediaRouter = require('./routers/media-router')
 
 const app = express()
 const limiter = rateLimit({
@@ -41,7 +41,7 @@ app.use('/api/mod', authMiddleware, modAuthMiddleware, modRouter)
 app.use('/api/authentication', authenticationRouter)
 app.use('/api/review', reviewRouter)
 app.use('/api/user', userRouter)
-app.use('/api/tv', TVRouter)
+app.use('/api/media', mediaRouter)
 app.use('/api', notFoundMiddleware)
 
 app.get('*', (req, res) => {
