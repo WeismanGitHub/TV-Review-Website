@@ -13,20 +13,20 @@ const ReviewSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 1000,
     },
-    tvId: {
-        type: Number,
-        required: [true, 'Please provide the tv id.'],
-        index: true
-    },
     userId: {
         type: mongoose.Types.ObjectId,
         required: [true, 'Please provide a creator id.'],
-        index: true
     },
-    type: {
-        type: String,
-        required: [true, 'Please provide a tv type. [Movie, Show]'],
-        enum: ['show', 'movie']
+    media: {
+        type: {
+            type: String,
+            required: [true, 'Please provide a tv type. [movie, tv]'],
+            enum: ['tv', 'movie']
+        },
+        id: {
+            type: Number,
+            required: [true, 'Please provide the tv id.'],
+        },
     },
     votes: [{
         type: VoteSchema,
@@ -48,5 +48,7 @@ ReviewSchema.plugin(schema => {
 function setOptions() {
     this.setOptions({ runValidators: true });
 }
+
+ReviewSchema.index({ 'media.id': 1, type: 1 });
 
 module.exports = mongoose.model('reviews', ReviewSchema)
