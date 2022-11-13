@@ -1,6 +1,5 @@
 const ReviewModel = require('../models/review-model')
 const ReportModel = require('../models/report-model')
-const VoteModel = require('../models/vote-model')
 const CustomErrors = require('../errors')
 
 const createReview = async (req, res) => {
@@ -8,11 +7,15 @@ const createReview = async (req, res) => {
         throw new CustomErrors.BadRequestError('Body must be between 1 and 1000 characters.')
     }
 
+    const { type, id } = req.body.media
+
     await ReviewModel.create({
         body: req.body.body,
         userId: req.user.id,
-        tvId: req.body.tvId,
-        type: req.body.type,
+        media: {
+            id: id,
+            type: type,
+        }
     })
 
     res.status(200).end()
@@ -30,8 +33,14 @@ const getReviews = async (req, res) => {
         updatedAt: req.query.age == 'newest' ? -1 : 1,
     }
 
-    const reviews = (await ReviewModel.find({ type: req.params.type, tvId: req.params.id })
-    .sort(sort).select('-tvId -type').lean())
+    const { type, id } = req.body.media
+
+    const reviews = (await ReviewModel.find({
+        media: {
+            type: type,
+            id: id
+        }
+    }).sort(sort).select('-media').lean())
     .map(review => {
         review.editable = req.user.id == review.userId
         return review
@@ -55,16 +64,9 @@ const updateReview = async (req, res) => {
 
 const vote = async (req, res) => {
     const { type, reviewId } = req.body
-    
-    if (type == 'delete') {
-        await VoteModel.deleteOne({ userId: req.user.id, reviewId: reviewId })
-    } else {
-        await VoteModel.updateOne(
-            { userId: req.user.id, reviewId: reviewId },
-            { userId: req.user.id, reviewId: reviewId, type: type },
-            { upsert: true }
-        )
-    }
+
+    const review = await ReviewModel.findById(reviewId)
+    await review.vote(type)
 
     res.status(200).end()
 }
