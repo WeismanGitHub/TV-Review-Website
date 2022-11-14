@@ -1,6 +1,6 @@
 const { faker } = require('@faker-js/faker');
 const request = require('supertest');
-const app = require('../app');
+const app = require('../server/app');
   
 it('POST /register => create an account', () => {
   return request(app)
