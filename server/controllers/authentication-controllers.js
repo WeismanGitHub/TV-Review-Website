@@ -2,7 +2,15 @@ const UserModel = require('../models/user-model')
 const CustomErrors = require('../errors')
 
 const register = async (req, res) => {
-    const userAlreadyExists = await UserModel.exists({ name: req.body.name });
+    const { name, password } = req.body
+
+    if (!name) throw new CustomErrors.BadRequestError('Name is undefined.')
+    if (!password) throw new CustomErrors.BadRequestError('Password is undefined.')
+
+    if (name.length >= 15 || name.length <= 0) throw new CustomErrors.BadRequestError('Name must be between 0 and 15 characters.')
+    if (name.length >= 50 || name.length <= 6) throw new CustomErrors.BadRequestError('Password must be between 6 and 50 characters.')
+
+    const userAlreadyExists = await UserModel.exists({ name: name });
 
     if (userAlreadyExists) {
         throw new CustomErrors.BadRequestError('Username already exists.')
