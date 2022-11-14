@@ -1,3 +1,4 @@
+const ExtraVotes = require('./extra-votes-model')
 const VoteSchema = require('./vote-schema')
 const mongoose = require('mongoose')
 
@@ -47,6 +48,9 @@ ReviewSchema.plugin(schema => {
 
 function setOptions() {
     this.setOptions({ runValidators: true });
+}
+
+ReviewSchema.methods.vote = async function(type) {
 }
 
 ReviewSchema.index({ 'media.id': 1, type: 1 });
