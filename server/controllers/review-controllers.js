@@ -66,7 +66,7 @@ const vote = async (req, res) => {
     const { type, reviewId } = req.body
 
     const review = await ReviewModel.findById(reviewId)
-    await review.vote(type)
+    await review.vote({ type: type, userId: req.user.id })
 
     res.status(200).end()
 }
