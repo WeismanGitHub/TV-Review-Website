@@ -1,7 +1,7 @@
 const VoteSchema = require('./vote-schema')
 const mongoose = require('mongoose')
 
-const ExtraVotes = new mongoose.Schema({
+const ExtraVotesModel = new mongoose.Schema({
     _id: {
         type: mongoose.Types.ObjectId,
         required: [true, 'Provide the review id.'],
@@ -9,4 +9,4 @@ const ExtraVotes = new mongoose.Schema({
     votes: [VoteSchema]
 })
 
-module.exports = mongoose.model('extra_votes', ExtraVotes)
+module.exports = mongoose.model('extra_votes', ExtraVotesModel)
