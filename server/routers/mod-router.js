@@ -6,7 +6,7 @@ const {
     getReportData,
     deleteReview,
     getReports,
-} = require('../controllers/mod-controllers')
+} = require('../controllers/mod-controller')
 
 const router = Router()
 

@@ -9,7 +9,7 @@ const {
     reportReview,
     getReviews,
     vote
-} = require('../controllers/review-controllers')
+} = require('../controllers/review-controller')
 
 const router = Router()
 

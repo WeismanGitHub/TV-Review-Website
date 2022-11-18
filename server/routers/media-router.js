@@ -1,4 +1,4 @@
-const { getTrendingMedia, searchMedia, getMedia } = require('../controllers/media-controllers')
+const { getTrendingMedia, searchMedia, getMedia } = require('../controllers/media-controller')
 const { Router } = require('express')
 
 const router = Router()

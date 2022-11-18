@@ -8,7 +8,7 @@ const {
     deleteUser,
     getUser,
     getSelf
-} = require('../controllers/user-controllers')
+} = require('../controllers/user-controller')
 
 const router = Router()
 
