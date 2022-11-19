@@ -1,5 +1,4 @@
-const userModel = require('../models/user-model');
-const UserModel = require('../models/user-model')
+const UserModel = require('../models/user-model');
 const request = require('supertest');
 const app = require('../app');
 
@@ -65,7 +64,7 @@ describe('authentication', () => {
     });
 
     describe('POST /api/login',  () => {
-        beforeAll(async () => { await userModel.create({ name: 'name', password: 'password' }) })
+        beforeAll(async () => { await UserModel.create({ name: 'name', password: 'password' }) })
         afterAll(async () => { await UserModel.deleteMany({ name: 'name' }) })
 
         it('returns 200 because req.body is valid', () => {
