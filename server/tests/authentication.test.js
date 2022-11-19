@@ -2,18 +2,19 @@ const UserModel = require('../models/user-model')
 const { faker } = require('@faker-js/faker');
 const request = require('supertest');
 const app = require('../app');
+const userModel = require('../models/user-model');
 
 describe('authentication', () => {
     describe('POST /api/register',  () => {
         afterAll(async () => {
-            await UserModel.deleteMany({ name: 'test' })
+            await UserModel.deleteMany({ name: 'name' })
         })
 
         it('returns 201 because req.body is valid', () => {
             return request(app)
             .post('/api/authentication/register')
             .set('Accept', 'application/json')
-            .send('name=test')
+            .send('name=name')
             .send('password=password')
             .expect(201)
         })
@@ -22,7 +23,7 @@ describe('authentication', () => {
             return request(app)
             .post('/api/authentication/register')
             .set('Accept', 'application/json')
-            .send('name=test')
+            .send('name=name')
             .send('password=password')
             .expect(400)
         })
@@ -65,7 +66,17 @@ describe('authentication', () => {
     });
 
     describe('POST /api/login',  () => {
-        
+        beforeAll(async () => { await userModel.create({ name: 'name', password: 'password' }) })
+        afterAll(async () => { await UserModel.deleteMany({ name: 'name' }) })
+
+        it('returns 200 because req.body is valid', () => {
+            return request(app)
+            .post('/api/authentication/login')
+            .set('Accept', 'application/json')
+            .send('name=name')
+            .send('password=password')
+            .expect(200)
+        })
     })
 })
 
