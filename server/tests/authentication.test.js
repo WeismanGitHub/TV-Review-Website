@@ -1,10 +1,15 @@
+const UserModel = require('../models/user-model')
 const { faker } = require('@faker-js/faker');
 const request = require('supertest');
 const app = require('../app');
 
 describe('authentication', () => {
     describe('POST /api/register',  () => {
-        it('returns 201 because req.body is valid', () => { // TODO: Deconstruct this, delete account
+        afterAll(async () => {
+            await UserModel.deleteMany({ name: 'test' })
+        })
+
+        it('returns 201 because req.body is valid', () => {
             return request(app)
             .post('/api/authentication/register')
             .set('Accept', 'application/json')
@@ -14,7 +19,12 @@ describe('authentication', () => {
         })
         
         it('returns 400 because of duplicate username', () => {
-            expect(true).toBe(true)
+            return request(app)
+            .post('/api/authentication/register')
+            .set('Accept', 'application/json')
+            .send('name=test')
+            .send('password=password')
+            .expect(400)
         })
     
         it('returns 400 because name is too long', () => {
