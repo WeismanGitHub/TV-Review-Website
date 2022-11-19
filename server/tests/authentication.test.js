@@ -1,8 +1,7 @@
+const userModel = require('../models/user-model');
 const UserModel = require('../models/user-model')
-const { faker } = require('@faker-js/faker');
 const request = require('supertest');
 const app = require('../app');
-const userModel = require('../models/user-model');
 
 describe('authentication', () => {
     describe('POST /api/register',  () => {
