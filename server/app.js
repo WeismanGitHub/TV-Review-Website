@@ -4,11 +4,11 @@ const compression = require('compression')
 const mongoose = require('mongoose')
 const express = require('express')
 const helmet = require('helmet')
+require('express-async-errors')
 const path = require('path')
 const cors = require('cors')
-
-require('express-async-errors')
 require("dotenv").config()
+
 
 const authenticationRouter = require('./routers/authentication-router')
 const notFoundMiddleware = require('./middleware/not-found-middleware')
@@ -16,9 +16,9 @@ const modAuthMiddleware = require('./middleware/mod-auth-middleware')
 const authMiddleware = require('./middleware/auth-middleware')
 const errorHandler = require('./middleware/error-handler')
 const reviewRouter = require('./routers/review-router')
+const mediaRouter = require('./routers/media-router')
 const userRouter = require('./routers/user-router')
 const modRouter = require('./routers/mod-router')
-const mediaRouter = require('./routers/media-router')
 
 const app = express()
 const limiter = rateLimit({
@@ -30,11 +30,11 @@ const limiter = rateLimit({
 
 app.use(limiter)
 app.use(express.static(path.resolve(__dirname, '../client/build')))
-app.use(helmet.contentSecurityPolicy({ directives: { 'script-src-attr': null } }))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())
 app.use(compression())
+app.use(helmet())
 app.use(cors())
 
 app.use('/api/mod', authMiddleware, modAuthMiddleware, modRouter)
