@@ -86,6 +86,15 @@ describe('authentication', () => {
             .send('password=password')
             .expect(401)
         })
+
+        it('returns 401 because password is invalid', () => {
+            return request(app)
+            .post('/api/authentication/login')
+            .set('Accept', 'application/json')
+            .send('name=name')
+            .send('password=wrongpassword')
+            .expect(401)
+        })
     })
 })
 
