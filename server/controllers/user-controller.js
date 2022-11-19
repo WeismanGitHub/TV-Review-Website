@@ -1,5 +1,10 @@
 const UserModel = require('../models/user-model')
-const { BadRequestError, UnauthorizedError, NotFoundError } = require('../errors')
+
+const {
+    BadRequestError,
+    UnauthorizedError,
+    NotFoundError
+} = require('../errors')
 
 const updateUser = async (req, res) => {
     const { newName, newPassword, currentPassword} = req.body

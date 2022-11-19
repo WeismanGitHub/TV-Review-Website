@@ -1,5 +1,5 @@
 const UserModel = require('../models/user-model')
-const { BadRequestError } = require('../errors')
+const { BadRequestError, UnauthorizedError } = require('../errors')
 
 const register = async (req, res) => {
     const { name, password } = req.body
@@ -30,13 +30,13 @@ const login = async (req, res) => {
     const user = await UserModel.findOne({ name: name })
 
     if (!user) {
-        throw new BadRequestError('Please provide a valid name.')
+        throw new UnauthorizedError('Please provide a valid name.')
     }
     
     const passwordIsCorrect = await user.checkPassword(password)
     
     if (!passwordIsCorrect) {
-        throw new BadRequestError('Please provide the correct password.')
+        throw new UnauthorizedError('Please provide the correct password.')
     }
 
     const token = user.createJWT()
