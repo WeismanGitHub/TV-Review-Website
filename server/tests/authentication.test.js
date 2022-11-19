@@ -3,7 +3,7 @@ const request = require('supertest');
 const app = require('../app');
 
 describe('authentication', () => {
-    describe('POST /api/register',  () => {
+    describe('POST /api/authentication/register',  () => {
         afterAll(async () => {
             await UserModel.deleteMany({ name: 'name' })
         })
@@ -63,7 +63,7 @@ describe('authentication', () => {
         });
     });
 
-    describe('POST /api/login',  () => {
+    describe('POST /api/authentication/login',  () => {
         beforeAll(async () => { await UserModel.create({ name: 'name', password: 'password' }) })
         afterAll(async () => { await UserModel.deleteMany({ name: 'name' }) })
 
