@@ -1,8 +1,17 @@
 const UserModel = require('../models/user-model')
-const CustomErrors = require('../errors')
+const { BadRequestError, UnauthorizedError, NotFoundError } = require('../errors')
 
 const updateUser = async (req, res) => {
     const { newName, newPassword, currentPassword} = req.body
+
+    if (newName) {
+        const userAlreadyExists = await UserModel.exists({ name: newName });
+
+        if (userAlreadyExists) {
+            throw new BadRequestError('Username already exists.')
+        }
+    }
+    
     const user = await UserModel.findById(req.user.id)
     
     const passwordIsCorrect = await user.checkPassword(currentPassword)
@@ -22,13 +31,6 @@ const updateUser = async (req, res) => {
     }
 
     await user.save()
-    .catch(err => {
-        if (err.name == 'MongoServerError') {
-            throw new DuplicateKeyError('Pick a unique username.')
-        }
-        
-        throw new Error(err.message)
-    })
 
     res.status(200).end()
 }
@@ -45,7 +47,7 @@ const deleteUser = async (req, res) => {
 const getUser = async (req, res) => {
     const user = await UserModel.findById(req.params.userId).select('-password').lean()
 
-    if (!user) throw new Error('User does not exist.')
+    if (!user) throw new NotFoundError('User does not exist.')
 
     res.status(200)
     .send(user)
@@ -54,7 +56,7 @@ const getUser = async (req, res) => {
 const getSelf = async (req, res) => {
    const user = await UserModel.findById(req.user.id).select('-password').lean()
 
-   if (!user) throw new Error('User does not exist.')
+   if (!user) throw new NotFoundError('User does not exist.')
 
     res.status(200)
     .send(user)
