@@ -16,6 +16,22 @@ describe('media', () => {
                 })
             })
         })
+
+        it('returns 400 because page number is invalid', () => {
+            return request(app)
+            .get('/api/media/search')
+            .query({ phrase: 'test' })
+            .query({ page: -1 })
+            .expect(400)
+        })
+
+        it('returns 400 because search phrase is invalid', () => {
+            return request(app)
+            .get('/api/media/search')
+            .query({ phrase: '' })
+            .query({ page: 0 })
+            .expect(400)
+        })
     });
 
     describe('POST /api/media/trending',  () => {
