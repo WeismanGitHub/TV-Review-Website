@@ -1,6 +1,5 @@
 const NodeCache = require( "node-cache");
 const axios = require('axios');
-require("dotenv").config()
 
 const trendingMediaCache = new NodeCache({ stdTTL: 86400, checkperiod: 3600 });
 
