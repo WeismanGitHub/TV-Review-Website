@@ -1,3 +1,4 @@
+const { BadRequestError } = require('../errors')
 const NodeCache = require( "node-cache");
 const axios = require('axios');
 
@@ -14,7 +15,17 @@ function standardizeMedia(media) {
 }
 
 const searchMedia = async (req, res) => {
-    const results = standardizeMedia((await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${req.query.page || 1}&include_adult=true&query=${req.query.phrase}`)).data.results
+    const { page, phrase } = req.query
+
+    if (typeof page !== 'number' || page < 0) {
+        throw new BadRequestError('Invalid page number.')
+    }
+
+    if (!phrase.length) {
+        throw new BadRequestError('Invalid search phrase.')
+    }
+    
+    const results = standardizeMedia((await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page || 1}&include_adult=true&query=${phrase}`)).data.results
     .filter(result => result.media_type == 'tv' || result.media_type == 'movie'))
 
     res.status(200).json(results)
