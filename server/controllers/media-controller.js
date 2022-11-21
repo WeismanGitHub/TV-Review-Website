@@ -15,7 +15,11 @@ function standardizeMedia(media) {
 }
 
 const searchMedia = async (req, res) => {
-    const { page, phrase } = req.query
+    let { page, phrase } = req.query
+
+    if (!page) {
+        page = 0
+    }
 
     if (isNaN(page) || page < 0) {
         throw new BadRequestError('Invalid page number.')
