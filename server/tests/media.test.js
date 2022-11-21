@@ -35,6 +35,15 @@ describe('media', () => {
     });
 
     describe('POST /api/media/trending',  () => {
+        it('returns 200', () => {
+            return request(app)
+            .get('/api/media/trending')
+            .expect(200)
+            .then(res => {
+                expect(res._body).toHaveProperty('tv')
+                expect(res._body).toHaveProperty('movies')
+            })
+        })
     })
 
     describe('POST /api/media/:type/:id',  () => {
