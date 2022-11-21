@@ -68,7 +68,7 @@ const getTrendingMedia = async (req, res) => {
         const trendingTV = (await axios.get(`https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`))
         .data.results
 
-        trendingMedia = { ...standardizeMedia(trendingMovies), ...standardizeMedia(trendingTV) }
+        trendingMedia = { movies: standardizeMedia(trendingMovies), tv: standardizeMedia(trendingTV) }
 
         trendingMediaCache.set('trendingMedia', trendingMedia)
     }
