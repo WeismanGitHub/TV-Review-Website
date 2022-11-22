@@ -44,7 +44,7 @@ const getMedia = async (req, res) => {
     }
     
     if (isNaN(id) || id < 0) {
-        throw new BadRequestError('Id must be a number and greater than or equal to 0.')
+        throw new BadRequestError('Id must be a number greater than or equal to 0.')
     }
     
     const result = (await axios.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
