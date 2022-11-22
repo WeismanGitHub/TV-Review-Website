@@ -57,6 +57,12 @@ describe('media', () => {
                 expect(res._body).toHaveProperty('overview')
             })
         })
+
+        it('returns 404 because resource does not exist', () => {
+            return request(app)
+            .get('/api/media/movie/1000000000000000000')
+            .expect(404)
+        })
     })
 })
 
