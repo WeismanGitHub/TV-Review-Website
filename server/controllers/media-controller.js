@@ -1,4 +1,4 @@
-const { BadRequestError } = require('../errors')
+const { BadRequestError, NotFoundError } = require('../errors')
 const NodeCache = require( "node-cache");
 const axios = require('axios');
 
@@ -37,7 +37,16 @@ const searchMedia = async (req, res) => {
 
 const getMedia = async (req, res) => {
     const { type, id } = req.params
-    
+    const mediaTypes = ['movie', 'tv']
+
+    if (!mediaTypes.includes(type)) {
+        throw new BadRequestError('Media type must be movie or tv.')
+    }
+
+    if (!isNaN(id) || id < 0) {
+        throw new BadRequestError('Id must be a number and greater than or equal to 0.')
+    }
+
     const result = (await axios.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
 
     let media = {
