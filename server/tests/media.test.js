@@ -47,6 +47,16 @@ describe('media', () => {
     })
 
     describe('POST /api/media/:type/:id',  () => {
+        it('returns 200 because request is valid', () => {
+            return request(app)
+            .get('/api/media/movie/2')
+            .expect(200)
+            .then(res => {
+                expect(res._body).toHaveProperty('title')
+                expect(res._body).toHaveProperty('genres')
+                expect(res._body).toHaveProperty('overview')
+            })
+        })
     })
 })
 
