@@ -42,20 +42,20 @@ const getMedia = async (req, res) => {
     if (!mediaTypes.includes(type)) {
         throw new BadRequestError('Media type must be movie or tv.')
     }
-
-    if (!isNaN(id) || id < 0) {
+    
+    if (isNaN(id) || id < 0) {
         throw new BadRequestError('Id must be a number and greater than or equal to 0.')
     }
-
+    
     const result = (await axios.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
-
+    
     let media = {
         title: result.original_name || result.original_title || result.name,
         genres: result.genres.map(genre => genre.name).join(', '),
         release: type == 'movie' ? result.release_date : result.first_air_date,
         overview: result.overview,
     }
-
+    
     if (type == 'tv') {
         media = {
             ...media,
@@ -69,7 +69,7 @@ const getMedia = async (req, res) => {
             }),
         }
     }
-
+    
     res.status(200).json(media)
 }
 
