@@ -63,6 +63,24 @@ describe('media', () => {
             .get('/api/media/movie/1000000000000000000')
             .expect(404)
         })
+        
+        it('returns 400 because media type is invalid', () => {
+            return request(app)
+            .get('/api/media/invalidMediaType/1000000000000000000')
+            .expect(400)
+        })
+
+        it('returns 400 because id is invalid', () => {
+            return request(app)
+            .get('/api/media/movie/invalidNum')
+            .expect(400)
+        })
+
+        it('returns 400 because id is invalid', () => {
+            return request(app)
+            .get('/api/media/movie/-1')
+            .expect(400)
+        })
     })
 })
 
