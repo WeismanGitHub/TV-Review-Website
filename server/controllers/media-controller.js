@@ -51,7 +51,7 @@ const getMedia = async (req, res) => {
     
     let media = {
         title: result.original_name || result.original_title || result.name,
-        genres: result.genres.map(genre => genre.name).join(', '),
+        genres: result.genres,
         release: type == 'movie' ? result.release_date : result.first_air_date,
         overview: result.overview,
     }
