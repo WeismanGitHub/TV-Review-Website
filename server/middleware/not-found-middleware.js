@@ -1,5 +1,7 @@
+const { NotFoundError } = require('../errors')
+
 const notFoundMiddleware = (req, res, next) => {
-    res.status(404).send('Not found!')
+    throw new NotFoundError('Route not found.')
 }
 
 module.exports = notFoundMiddleware
