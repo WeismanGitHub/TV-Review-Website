@@ -1,6 +1,10 @@
-const { BadRequestError, NotFoundError } = require('../errors')
 const NodeCache = require( "node-cache");
 const axios = require('axios');
+const {
+    BadRequestError,
+    NotFoundError,
+    InternalError
+} = require('../errors')
 
 const trendingMediaCache = new NodeCache({ stdTTL: 86400, checkperiod: 3600 });
 
@@ -46,8 +50,17 @@ const getMedia = async (req, res) => {
     if (isNaN(id) || id < 0) {
         throw new BadRequestError('Id must be a number greater than or equal to 0.')
     }
-    
-    const result = (await axios.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
+
+    try {
+        var result = (await axios.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`)).data
+
+    } catch(err) {
+        if (err.response.status == 404) {
+            throw new NotFoundError('Media not found.')
+        }
+        
+        throw new InternalError('Problem getting media.')
+    }
     
     let media = {
         title: result.original_name || result.original_title || result.name,
