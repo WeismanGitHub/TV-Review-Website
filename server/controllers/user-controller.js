@@ -38,7 +38,9 @@ const updateUser = async (req, res) => {
 
     await user.save()
 
-    res.status(200).end()
+    res.status(200)
+    .cookie('token', user.createJWT())
+    .end()
 }
 
 const deleteUser = async (req, res) => {
