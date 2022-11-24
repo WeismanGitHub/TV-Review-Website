@@ -1,3 +1,4 @@
+const ObjectId = require('mongoose').Types.ObjectId;
 const UserModel = require('../models/user-model')
 
 const {
@@ -50,7 +51,13 @@ const deleteUser = async (req, res) => {
 
 // getSelf and getUser are separate because getSelf requires you be logged in.
 const getUser = async (req, res) => {
-    const user = await UserModel.findById(req.params.userId).select('-password').lean()
+    const userId = req.params.userId
+
+    if (!ObjectId.isValid(userId)) {
+        throw new BadRequestError('Id is invalid.')
+    }
+
+    const user = await UserModel.findById(userId).select('-password').lean()
 
     if (!user) throw new NotFoundError('User does not exist.')
 
