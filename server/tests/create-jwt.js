@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-async function createJwt(user) {
+async function createJWT(user) {
     jwt.sign(
         { _id: user._id, level: user.level },
         process.env.JWT_SECRET,
@@ -8,4 +8,4 @@ async function createJwt(user) {
     )
 }
 
-module.exports = createJwt
+module.exports = createJWT
