@@ -1,10 +1,11 @@
+const { UnauthorizedError} = require('../errors')
 const jwt = require('jsonwebtoken')
 
 const authMiddleware = async (req, res, next) => {
     const token = req.cookies.token
 
     if (!token) {
-        throw new Error('Authentication Invalid')
+        throw new UnauthorizedError('Authentication Invalid')
     }
     
     try {
