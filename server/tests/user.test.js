@@ -11,7 +11,7 @@ describe('user tests', () => {
     })
 
     afterAll(async () => {
-        const user = await UserModel.deleteMany({ name: 'test' })
+        await UserModel.deleteMany({ name: { $in: ['test', 'newName'] } })
     })
 
     describe('GET /api/user',  () => {
