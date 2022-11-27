@@ -11,9 +11,9 @@ const updateUser = async (req, res) => {
     const { newName, newPassword, currentPassword} = req.body
 
     if (newName) {
-        const userAlreadyExists = await UserModel.exists({ name: newName });
+        const userNameUnoriginal = await UserModel.exists({ name: newName });
 
-        if (userAlreadyExists) {
+        if (userNameUnoriginal) {
             throw new BadRequestError('Username already exists.')
         }
     }
