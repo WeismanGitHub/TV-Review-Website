@@ -9,7 +9,6 @@ const path = require('path')
 const cors = require('cors')
 require("dotenv").config()
 
-
 const authenticationRouter = require('./routers/authentication-router')
 const notFoundMiddleware = require('./middleware/not-found-middleware')
 const modAuthMiddleware = require('./middleware/mod-auth-middleware')
@@ -28,17 +27,17 @@ const limiter = rateLimit({
 	legacyHeaders: false,
 })
 
+app.use(compression())
+app.use(helmet())
 app.use(limiter)
-app.use(express.static(path.resolve(__dirname, '../client/build')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())
-app.use(compression())
-app.use(helmet())
 app.use(cors({
     origin: ['http://localhost:5000'],
 }))
 
+app.use(express.static(path.resolve(__dirname, '../client/build')))
 app.use('/api/mod', authMiddleware, modAuthMiddleware, modRouter)
 app.use('/api/authentication', authenticationRouter)
 app.use('/api/review', reviewRouter)
